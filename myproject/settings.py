@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret! 
 # セキュリティ上の重要なキー（公開NG）
-SECRET_KEY = 'django-insecure-!&**d0o^u!(o-r-xmpxtf*i*1$%91qcl1h^0@digcr0$dby-!7'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #True：開発モード ／ False：本番モード
+DEBUG = False #True：開発モード ／ False：本番モード
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kyoglee_management.com'] #接続を許可するドメイン（本番用）
-
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kyoglee_management.com'] #接続を許可するドメイン（本番用）
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -142,3 +142,8 @@ LOGOUT_REDIRECT_URL = "/login/"
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
