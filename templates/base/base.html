@@ -1,0 +1,36 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>{% block title %}京大グリー運営管理アプリ{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/base.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="icon" href="{% static 'img/kyoglee_flog.jpg' %}">
+    <link rel="apple-touch-icon" href="{% static 'img/kyoglee_flog.jpg' %}">
+</head>
+<body>
+    <div class="user-info">
+        ようこそ、{{ request.user.username }} さん
+    </div>
+    <h1><a href="{% url 'main:index' %}">京都大学グリークラブ　運営管理アプリ</a></h1>
+    {% block navigation %}
+    <!-- 子テンプレートで上書きするナビボタン等 -->
+    {% endblock %}
+    <div id="clock" class="clock"></div>
+    <br>
+    
+    {% block body %}
+    {% endblock %}
+
+    <br>
+    <footer>
+        <form action="{% url 'accounts:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout">ログアウト</button>
+        </form>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">徴収一覧（{{ year }}年）</h2>
+    <div class="register_contents">
+        <table border="1" class="member_table">
+            <thead>
+                <tr>
+                    <th>徴収項目</th>
+                    <th>徴収状況</th>
+                    <th>未徴収者</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for info in collection_info %}
+                <tr>
+                    <td>
+                        <a href="{% url 'accounting:collection_detail' year=year pk=info.collection.pk %}">
+                            {{ info.collection.title }}
+                        </a>
+                    </td>
+                    <td>{{ info.done_count }} / {{ info.total_count }}</td>
+                    <td>
+                        {% if info.pending_members %}
+                            {{ info.pending_members|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">徴収データがありません。</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

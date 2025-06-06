@@ -1,0 +1,61 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+<div class="contents">
+    <h2 class="page_name">徴収更新</h2>
+    <div class="register_contents">
+        <form method="post" class="register_form">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th style="min-width: 160px;">団員</th>
+                        <th>徴収額（円）</th>
+                        <th>徴収ステータス</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member, record in member_records %}
+                    <tr {% if record.status == "未" %}style="background-color: #fff8b3;"{% endif %}>
+                        <td>{{ member.name }}</td>
+                        <td>
+                            <input type="number" name="amount_{{ member.id }}" value="{{ record.amount }}">
+                        </td>
+                        <td>
+                            <select name="status_{{ member.id }}">
+                                <option value="未" {% if record.status == "未" %}selected{% endif %}>未</option>
+                                <option value="済" {% if record.status == "済" %}selected{% endif %}>済</option>
+                                <option value="不要" {% if record.status == "不要" %}selected{% endif %}>不要</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="save_wrapper">
+                <button type="submit" class="save">保存</button>
+                <a href="{% url 'accounting:collection_detail' year=collection.deadline.year pk=collection.id %}" class="button">キャンセル</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    table input[type="number"],
+    table select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 4px;
+    }
+    th {
+        padding: 8px 12px;
+        text-align: left;
+    }
+    td {
+        padding: 6px 8px;
+    }
+</style>
+
+{% endblock %}

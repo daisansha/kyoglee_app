@@ -1,0 +1,21 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="main">
+    <div class="top_contents">
+        <h2 class="page_name">会計管理</h2>
+        <div class="contents_item">
+            <h3 class="contents_name">経費</h3>
+            <div class="choice_group">
+                <a href = "{% url 'accounting:expense_apply' %}" class="choice">経費申請</a>
+                <a href = "{% url 'accounting:expense_list' %}" class="choice">申請一覧</a>
+            </div>
+            <h3 class="contents_name">徴収</h3>
+            <div class="choice_group">
+                <a href = "{% url 'accounting:collection_create' %}" class="choice">経費申請</a>
+                <a href = "{% url 'accounting:collection_list' year=2025 %}" class="choice">申請一覧</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base/member_base.html" %}
+{% block body %}
+
+<div class="main">
+    <div class="top_contents">
+        <h2 class="page_name">機能選択</h2>
+        <div class="contents_item">
+            <h3 class="contents_name">団員</h3>
+            <div class="choice_group">
+                <a href = "{% url 'member:member_create' %}" class="choice">団員登録</a>
+                <a href = "{% url 'member:member_list' %}" class="choice">団員一覧</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

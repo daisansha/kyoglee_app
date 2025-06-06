@@ -1,0 +1,22 @@
+{% extends "base/main_base.html" %}
+{% block body %}
+
+<div class="main">
+    <div class="top_contents">
+        <h2 class="page_name">共通ポータル</h2>
+        <div class="contents_item">
+            <h3 class="contents_name">団員</h3>
+            <div class="choice_group">
+                <a href = "{% url 'member:index' %}" class="choice">団員管理</a>
+                <a href="{% url 'practice_management:practice_index' %}" class="choice">練習管理</a>
+            </div>
+        </div>
+        <div class="contents_item">
+            <h3 class="contents_name">会計</h3>
+            <div class="choice_group">
+                <a href="{% url 'accounting:index' %}" class="choice">会計管理</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

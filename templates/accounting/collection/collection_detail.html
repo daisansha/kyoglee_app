@@ -1,0 +1,53 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+<div class="contents">
+    <h2 class="page_name">徴収詳細</h2>
+    <div class="register_contents">
+        <form method="get" class="register_form">  <!-- formタグで囲って統一感 -->
+            {{ form.as_p }}
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th style="min-width: 160px;">団員</th>
+                        <th>徴収額（円）</th>
+                        <th>徴収ステータス</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr {% if record.status == "未" %}style="background-color: #fff8b3;"{% endif %}>
+                        <td>    
+                            <a href="{% url 'member:member_detail' record.member.id %}">
+                            {{ record.member.name }}
+                            </a>
+                        </td>
+                        <td>{{ record.amount }}</td>
+                        <td>{{ record.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <div class="save_wrapper">
+        <a href="{% url 'accounting:collection_update' collection.id %}" class="button">更新</a>
+        <a href="{% url 'accounting:collection_list' year=collection.deadline.year %}" class="button">一覧に戻る</a>
+        <form action="{% url 'accounting:collection_delete' collection.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="button delete" onclick="return confirm('本当に削除してよいですか？');">削除</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    th {
+        padding: 8px 12px;
+        text-align: left;
+    }
+    td {
+        padding: 6px 8px;
+    }
+</style>
+{% endblock %}

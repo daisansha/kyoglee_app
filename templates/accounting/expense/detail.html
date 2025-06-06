@@ -1,0 +1,26 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+<div class="contents">
+    <h2 class="page_name">経費申請の詳細</h2>
+    <div class="register_contents">
+        <div class="register_form">
+            {{ form.as_p }}
+            {% if expense.receipt_image %}
+                <div>領収書画像:<br>
+                    <img src="{{ expense.receipt_image.url }}" alt="レシート画像" width="300px">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="save_wrapper">
+        <a href="{% url 'accounting:expense_update' expense.id %}" class="button">更新</a>
+        <a href="{% url 'accounting:expense_list' %}" class="button">一覧に戻る</a>
+    </div>
+    <form action="{% url 'accounting:expense_delete' expense.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="button delete" onclick="return confirm('本当に削除してよいですか？');">削除</button>
+    </form>
+</div>
+
+{% endblock %}
+

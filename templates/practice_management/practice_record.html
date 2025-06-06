@@ -1,0 +1,189 @@
+{% extends "base/practice_management_base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block body %}
+
+<style>
+    .practice-row {
+        background-color: #d0f0ff; /* 練習：水色 */
+    }
+    .matsuoka_practice-row {
+        background-color: #a0c4ff; /* 松岡先生練習：青 */
+    }
+    .motoyama_practice-row {
+        background-color:rgb(250, 128, 144); /* 本山先生練習：赤 */
+    }
+    .piano_practice-row {
+        background-color:rgb(221, 128, 250); /* ピアノ先生練習：赤 */
+    }
+    .concert-row {
+        background-color: #d0ffd0; /* 演奏会：緑 */
+    }
+    .welcome-row {
+        background-color: #fff6a0; /* 新歓：黄色 */
+    }
+    .training_camp-row {
+        background-color: #ffd8a0; /* 合宿：オレンジ */
+    }
+
+    .table_scroll_wrapper {
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: 600px; /* 表の最大高さを設定（調整可能） */
+    }
+
+    .practice_table {
+        border-collapse: collapse;
+        min-width: max-content; /* 横スクロールを可能に */
+    }
+
+    .practice_table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9;
+    z-index: 3;
+    }
+    .practice_table th, .practice_table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .sticky-col {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        white-space: nowrap;
+        background-color: #f9f9f9; /* ← 背景色を追加して透過を防止 */
+    }
+
+    .sticky-col a {
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .practice_table select {
+    appearance: none;       /* モダンブラウザ */
+    -webkit-appearance: none; /* Safari対応 */
+    -moz-appearance: none;    /* Firefox対応 */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    text-align: center;
+    }
+    /* 左上角のセル（例：「5月」セル）を最前面に */
+    .practice_table thead .sticky-col {
+        z-index: 4;  /* 1行目＋1列目両方の上に */
+        background-color: #f9f9f9;
+        font-weight: bold;
+    }
+    .member-col {
+    width: 2em;
+    min-width: 2em;
+    max-width: 2em;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+    white-space: normal !important;  /* ← nowrap を強制解除 */
+    }
+</style>
+
+<div class="contents">
+    <h2 class="page_name">{{ practice_month.year }}年{{ practice_month.month }}月 練習管理</h2>
+    <h3>〇：出席　　△：途中参加　　✕：欠席</h3>
+    <form method="POST">
+    {% csrf_token %}
+
+    <div class="table_scroll_wrapper">
+        <table class="practice_table">
+        <thead>
+            <tr>
+                <th class="sticky-col">{{ practice_month.month }}月</th>
+                <th>予定</th>
+                <th>場所</th>
+                {% for member in members %}
+                    <th class="member-col"><a href="{% url 'member:member_detail' member.id %}">{{ member.name }}</a></th>
+                {% endfor %}
+                <th>合計</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for day in days %}
+        <tr class="{% if day.status != 'none' %}{{ day.status }}-row{% endif %}">
+            <td class="sticky-col">
+                <a href="{% url 'practice_management:practice_record_detail' year=day.date.year month=day.date.month day=day.date.day %}">
+                    {{ day.date|date:"j (D)" }}
+                </a>
+            </td>
+            <td>
+                <select name="status_{{ day.id }}">
+                    {% for val, label in day.STATUS_CHOICES %}
+                        <option value="{{ val }}" {% if day.status == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select name="location_{{ day.id }}">
+                    {% for val, label in day.LOCATION_CHOICES %}
+                        <option value="{{ val }}" {% if day.location == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            {% for member in members %}
+                {% with day_id=day.id|stringformat:"s" member_id=member.id|stringformat:"s" %}
+                    {% with key="att_"|add:day_id|add:"_"|add:member_id %}
+                        {% with attendance=attendance_dict|get_item:key %}
+                            <td class="member-col">
+                                <select name="att_{{ day.id }}_{{ member.id }}">
+                                    {% if attendance %}
+                                        {% for val, label in attendance.choices %}
+                                            <option value="{{ val }}" {% if val == attendance.status %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    {% else %}
+                                        <option value="undecided" selected>ー</option>
+                                        <option value="present">〇</option>
+                                        <option value="late">△</option>
+                                        <option value="absent">✕</option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                        {% endwith %}
+                    {% endwith %}
+                {% endwith %}
+            {% endfor %}
+            <!-- 各日ごとの合計列 -->
+            <td>{{ row_totals|get_item:day.id }}</td>
+        </tr>
+        {% endfor %}
+
+        <!-- 合計行 -->
+        <tr>
+            <td>合計</td>
+            <td>-</td>
+            <td>-</td>
+            {% for member in members %}
+                <td>{{ col_totals|get_item:member.id }}</td>
+            {% endfor %}
+            <td>--</td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <div class="save_wrapper">
+        <button type="submit" class="save">確定</button>
+    </div>
+    </form>
+
+    {% if user.is_staff or user.member.has_role %}
+    <form action="{% url 'practice_management:delete_practice_month' year=practice_month.year month=practice_month.month %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="delete_button" onclick="return confirm('本当に削除してもよろしいですか？');">
+            この月の表を削除
+        </button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

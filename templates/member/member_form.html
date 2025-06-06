@@ -1,0 +1,33 @@
+{% extends "base/member_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">団員登録</h2>
+    <div class="register_contents">
+        <form method="POST" enctype="multipart/form-data" class="register_form">
+            {% csrf_token %}
+            <p>{{ form.name.label }}: {{ form.name }}</p>
+            <p>{{ form.kyogleeid.label }}: {{ form.kyogleeid }}</p>
+            <p>{{ form.joinyear.label }}: {{ form.joinyear }}</p>
+            <p>{{ form.faculty.label }}: {{ form.faculty }}</p>
+            <p>{{ form.part.label }}: {{ form.part }}</p>
+
+            <p>{{ form.role.label }}:</p>
+            <div class="checkbox-group">
+                {% for checkbox in form.role %}
+                    <div class="checkbox-item">
+                        {{ checkbox.tag }}
+                        <span>{{ checkbox.choice_label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <p>{{ form.picture.label }}: {{ form.picture }}</p>
+            <div class="save_wrapper">
+                <button type="submit" class="save">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

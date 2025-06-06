@@ -1,0 +1,132 @@
+{% extends "base/practice_management_base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block body %}
+
+<style>
+    .highlight-row {
+        background-color: #d0f0ff; /* 水色 */
+    }
+    .concert-row {
+        background-color: #d0ffd0; /* 緑 */
+    }
+
+    .table_scroll_wrapper {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .practice_table {
+        border-collapse: collapse;
+        min-width: max-content; /* 横スクロールを可能に */
+    }
+
+    .practice_table th, .practice_table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .sticky-col {
+        position: sticky;
+        left: 0;
+        background: #f9f9f9;
+        z-index: 1;
+    }
+
+    .sticky-col a {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+
+<div class="contents">
+    <h2 class="page_name">{{ practice_month.year }}年{{ practice_month.month }}月 練習管理</h2>
+
+    <form method="POST">
+    {% csrf_token %}
+
+    <div class="table_scroll_wrapper">
+        <table class="practice_table">
+        <thead>
+            <tr>
+                <th>{{ practice_month.month }}月</th>
+                <th>予定</th>
+                {% for member in members %}
+                    <th><a href="#">{{ member.name }}</a></th>
+                {% endfor %}
+                <th>合計</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for day in days %}
+        <tr class="{% if day.status == 'concert' %}concert-row{% elif day.status != 'none' %}highlight-row{% endif %}">
+            <td class="sticky-col">
+                <a href="{% url 'practice_management:practice_record_detail' year=day.date.year month=day.date.month day=day.date.day %}">
+                    {{ day.date|date:"j (D)" }}
+                </a>
+            </td>
+            <td>
+                <select name="status_{{ day.id }}">
+                    {% for val, label in day.STATUS_CHOICES %}
+                        <option value="{{ val }}" {% if day.status == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+
+            {% for member in members %}
+            {% with key=day.id|stringformat:"s"|add:","|add:member.id|stringformat:"s" %}
+                {% with attendance=attendance_dict|get_item:key %}
+                <td>
+                    {% if attendance %}
+                        <select name="att_{{ day.id }}_{{ member.id }}">
+                            {% for val, label in attendance.ATTENDANCE_CHOICES %}
+                                <option value="{{ val }}" {% if val == attendance.status %}selected{% endif %}>{{ label }}</option>
+                                <!--<option value="{{ val }}" {% if attendance.status|default_if_none:"undecided" == val %}selected{% endif %}>{{ label }}</option>-->
+                                <!--<option value="{{ val }}" {% if attendance.status == val %}selected{% endif %}>{{ label }}</option>-->
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        <select name="att_{{ day.id }}_{{ member.id }}">
+                            <option value="undecided" selected>未定</option>
+                            <option value="present">出席</option>
+                            <option value="late">途中参加</option>
+                            <option value="absent">欠席</option>
+                        </select>
+                    {% endif %}
+                </td>
+                {% endwith %}
+            {% endwith %}
+            {% endfor %}
+            <td>--</td>
+        </tr>
+        {% endfor %}
+
+        <!-- 合計行 -->
+        <tr>
+            <td>合計</td>
+            <td>-</td>
+            {% for member in members %}
+                <td>--</td>
+            {% endfor %}
+            <td>--</td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <div class="save_wrapper">
+        <button type="submit" class="save">確定</button>
+    </div>
+    </form>
+
+    <form action="{% url 'practice_management:delete_practice_month' year=practice_month.year month=practice_month.month %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="delete_button" onclick="return confirm('本当に削除してもよろしいですか？');">
+            この月の表を削除
+        </button>
+    </form>
+</div>
+
+{% endblock %}

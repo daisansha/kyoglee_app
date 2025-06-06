@@ -1,0 +1,19 @@
+{% extends "base/member_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <div class="glee_logo_wrapper">
+        <img src="\media\member\picture\kyoglee_logo.bmp" width=400 class="glee_logo" alt="京都大学グリークラブ_集合写真">
+    </div>
+    <div class="register_contents">
+        <form method="POST" class="register_form">
+            {% csrf_token %}
+            {{form.as_p}} <!--入力項目の自動生成-->
+            <div class="save_wrapper">
+                <button type="submit" class="save">ログイン</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

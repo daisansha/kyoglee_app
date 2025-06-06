@@ -1,0 +1,17 @@
+{% extends "base/member_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">団員情報更新</h2>
+    <div class="register_contents">
+        <form method="POST" enctype="multipart/form-data" class="register_form"> <!--エンコーディングタイプ 画像ファイルを送れるように-->
+            {% csrf_token %} <!--webアプリの脆 弱性の一つＣＳＲＦの検証をしてくれる-->
+            {{form.as_p}} <!--自動で入力項目が生成 フォームはあとでつくる-->
+            <div class="save_wrapper">
+                <button type="submit" class="save">更新</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">経費申請一覧</h2>
+    <div class="register_contents">
+        <table border="1" class="member_table">
+            <thead>
+                <tr>
+                    <th>申請者</th>
+                    <th>申請理由</th>
+                    <th>金額</th>
+                    <th>提出日時</th>
+                    <th>承認ステータス</th>
+                    <th>支払いステータス</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expense_list %}
+                <tr>
+                    <td>{{ expense.applicant.name }}</td>
+                    <td><a href="{% url 'accounting:expense_detail' expense.id %}">{{ expense.description }}</a></td>
+                    <td>{{ expense.amount }}円</td>
+                    <td>{{ expense.submitted_at|date:"Y-m-d H:i" }}</td>
+                    <td>{{ expense.get_approval_status_display }}</td>
+                    <td>{{ expense.get_payment_status_display }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="no_expenses">
+                        <div>申請がありません。</div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

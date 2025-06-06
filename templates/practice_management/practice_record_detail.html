@@ -1,0 +1,80 @@
+{% extends "base/practice_management_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">{{ practice_day.date|date:"Y年m月d日" }} の詳細</h2>
+
+    <div class="register_contents">
+        <div class="register_form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="attendance_summary">
+                    <h3>参加者</h3>
+                    <div class="name_list">
+                        {% for member in participants %}
+                            <span class="name_item">{{ member.name }}</span>
+                        {% empty %}
+                            <span class="name_item">なし</span>
+                        {% endfor %}
+                    </div>
+
+                    <h3>欠席者</h3>
+                    <div class="name_list">
+                        {% for member in absentees %}
+                            <span class="name_item">{{ member.name }}</span>
+                        {% empty %}
+                            <span class="name_item">なし</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="save_wrapper">
+                    <button type="submit" class="save">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="button_wrapper">
+        <a href="{% url 'practice_management:practice_record' year=practice_day.date.year month=practice_day.date.month %}" class="button">
+            戻る
+        </a>
+    </div>
+</div>
+
+<style>
+.attendance_summary {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #f4faff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.attendance_summary h3 {
+    margin: 15px 0 5px;
+    font-size: 1em;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+}
+
+.name_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 6px 0 12px;
+}
+
+.name_item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.95em;
+}
+</style>
+
+
+
+{% endblock %}

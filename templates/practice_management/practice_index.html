@@ -1,0 +1,31 @@
+{% extends "base/practice_management_base.html" %}
+{% block body %}
+
+<div class="main">
+    <div class="top_contents">
+        <h2 class="page_name">機能選択</h2>
+        <div class="contents_item">
+            <h3 class="contents_name">作成</h3>
+            <div class="choice_group">
+                <div class="choice choice-month">
+                <a href="{% url 'practice_management:create_practice_record' %}">練習管理表を作成</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contents_item">
+            <h3 class="contents_name">練習管理表</h3>
+            <div class="choice_group">
+                {% for month in months %}
+                    <a href="{% url 'practice_management:practice_record' year=month.year month=month.month %}">
+                        <div class="choice choice-month">{{ month.year }}年{{ month.month }}月</div>
+                    </a>
+                {% empty %}
+                    <li>作成済みの練習表はまだありません。</li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

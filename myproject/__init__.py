@@ -1,0 +1,1 @@
+# myproject/myproject/ は、Djangoのプロジェクト設定ファイル一式が入っているディレクトリ

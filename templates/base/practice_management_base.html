@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+
+{% block navigation %}
+    <div class="btn-wrapper">
+        <a href="https://www.youtube.com/@user-pz8zi5ds6s" target="_blank" class="btn youtube">YouTube</a>
+        <a href="https://x.com/Glee_KU" target="_blank" class="btn twitter">Twitter</a> 
+        <a href="https://sites.google.com/view/kyotoglee/home" target="_blank" class="btn website">WebSite</a>
+        <a href="https://drive.google.com/drive/home" target="_blank" class="btn googledrive">GoogleDrive</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="btn gmail">Gmail</a>
+        <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" class="btn googlecalender">GoogleCalender</a>
+    </div>
+    <div class="btn-wrapper">
+        <h2><a href="{% url 'practice_management:practice_index' %}">練習管理ホーム</a></h2>
+    </div>
+{% endblock %}
