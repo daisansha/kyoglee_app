@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect  # ← 追加
 
 #プロジェクト全体のルーティング　アプリケーションごとにルーティング　アプリが増えたらここにpath("newapp/", include("newapp.urls")) を追加する
 # include() で、各アプリ（management, accounts）の URL 設定を取り込んでいる
@@ -29,4 +30,5 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path("accounting/", include("accounting.urls", namespace="accounting")),
     path("practice/", include("practice_management.urls", namespace="practice_management")),
+    path('', lambda request: redirect('/main/')),  # ← トップページを /main/ に転送
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
