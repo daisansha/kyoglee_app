@@ -1,9 +1,11 @@
-{% extends "base/member_base.html" %}
+{% extends "base/base.html" %}
 {% block body %}
+{% load static %}  {# ← テンプレートの最初に追加 #}
 
 <div class="contents">
     <div class="glee_logo_wrapper">
-        <img src="\media\member\picture\kyoglee_logo.bmp" width=400 class="glee_logo" alt="京都大学グリークラブ_集合写真">
+        <!--<img src="\media\member\picture\kyoglee_logo.bmp" width=400 class="glee_logo" alt="京都大学グリークラブ_集合写真">-->
+        <img src="{% static 'img/kyoglee_logo.bmp' %}" width="400" class="glee_logo" alt="京都大学グリークラブ_集合写真">
     </div>
     <div class="register_contents">
         <form method="POST" class="register_form">
