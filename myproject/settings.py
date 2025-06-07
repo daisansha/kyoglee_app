@@ -47,7 +47,7 @@ INSTALLED_APPS = [ #有効化されたアプリ一覧（member もここで登�
     'main.apps.MainConfig',
     'member.apps.MemberConfig', #マイグレーションで、memberアプリを参照
     'accounting.apps.AccountingConfig',
-    'practice_management.apps.PracticeManagementConfig'
+    'practice_management.apps.PracticeManagementConfig',
     'cloudinary',
     'cloudinary_storage',
 ]
