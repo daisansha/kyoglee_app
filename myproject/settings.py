@@ -132,7 +132,9 @@ STATIC_URL = '/static/' #静的ファイルのURLと場所
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/" #アップロード画像等のURL
-MEDIA_ROOT = '/media' if os.environ.get('RENDER') else BASE_DIR / 'media'
+MEDIA_ROOT = '/opt/render/project/src/media'
+
+# MEDIA_ROOT = '/media' if os.environ.get('RENDER') else BASE_DIR / 'media'
 """
 if DEBUG:
     MEDIA_ROOT = BASE_DIR / "media" # アップロード画像等の保存先ディレクトリ 「プロジェクトディレクトリの直下に media/ というフォルダを作り、そこにアップロード画像などを保存する」という意味
