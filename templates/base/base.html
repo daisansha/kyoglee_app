@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="user-info">
-        ようこそ、{{ request.user.username }} さん
+        ログイン中のアカウント：{{ request.user.username }}
     </div>
     <h1><a href="{% url 'main:index' %}">京都大学グリークラブ　運営管理アプリ</a></h1>
     {% block navigation %}
