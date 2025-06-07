@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # プロジェクトのルートパス
@@ -53,9 +55,9 @@ INSTALLED_APPS = [ #有効化されたアプリ一覧（member もここで登�
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dutyv76iu',
-    'API_KEY': '584513159162935',
-    'API_SECRET': 'laOSSBOjMEGVrjEdeRHdYbNNSJg',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
 MIDDLEWARE = [ #リクエスト処理の中間処理群（CSRF・セッションなど
