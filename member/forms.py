@@ -4,6 +4,8 @@ from django import forms
 from .models import Member, Role #.modelsのMemberクラスをインポート
 
 class MemberForm(ModelForm):
+    picture = forms.ImageField(required=False)  # ← この行を追加！
+
     class Meta:
         model = Member
         fields = ["name","kyogleeid","joinyear","faculty","part","role","picture"] #ここが、入力画面に反映
