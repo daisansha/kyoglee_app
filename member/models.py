@@ -4,6 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+from cloudinary.models import CloudinaryField
 
 class Role(models.Model):
     code = models.CharField(max_length=50)
@@ -28,7 +29,8 @@ class Member(models.Model):
     part = models.CharField(max_length=10, choices=PART_CHOICES, verbose_name="パート")
     #role = models.CharField(max_length=20, choices=ROLE_CHOICES, verbose_name="役職")
     role = models.ManyToManyField(Role, verbose_name="役職", blank=True)
-    picture = models.ImageField(upload_to="member/picture/", blank=True, null=True, verbose_name="写真")
+    #picture = models.ImageField(upload_to="member/picture/", blank=True, null=True, verbose_name="写真")
+    picture = CloudinaryField('画像', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="作成日時") #そのデータがはじめて作られたそのときの日時を保存
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新日時") #データが保存・更新されるたびに記録
     
