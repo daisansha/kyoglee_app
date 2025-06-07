@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #True：開発モード ／ False：本番モード
+DEBUG = True
+# DEBUG = False #True：開発モード ／ False：本番モード
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kyoglee_management.com'] #接続を許可するドメイン（本番用）
 ALLOWED_HOSTS = ['*']
@@ -130,19 +131,23 @@ STATIC_URL = '/static/' #静的ファイルのURLと場所
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR / "media" #アップロード画像等の保存先ディレクトリ
 MEDIA_URL = "/media/" #アップロード画像等のURL
 
+if DEBUG:
+    MEDIA_ROOT = BASE_DIR / "media" # アップロード画像等の保存先ディレクトリ 「プロジェクトディレクトリの直下に media/ というフォルダを作り、そこにアップロード画像などを保存する」という意味
+else:
+    MEDIA_ROOT = "/media/"  # RenderでマウントするVolumeのパス
+    
 #ログイン・ログアウト後に遷移する画面
 LOGIN_REDIRECT_URL = "/main/"
 
 LOGOUT_REDIRECT_URL = "/login/"
 
 #css,js
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
 
+#collectstatic とは？
+#static/（各アプリ内 or プロジェクト内）にあるファイルをSTATIC_ROOT で指定されたディレクトリ（通常は staticfiles/）にまとめてコピーするものです。
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 

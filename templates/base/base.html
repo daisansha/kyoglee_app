@@ -1,4 +1,4 @@
-<!-- templates/base.html -->
+<!-- templates/base/base.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <script src="{% static 'js/base.js' %}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="icon" href="{% static 'img/kyoglee_flog.jpg' %}">
+    <link rel="icon" href="{% static 'img/kyoglee_flog_favicon.ico' %}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{% static 'img/kyoglee_flog.jpg' %}">
 </head>
 <body>
@@ -21,10 +21,8 @@
     {% endblock %}
     <div id="clock" class="clock"></div>
     <br>
-    
     {% block body %}
     {% endblock %}
-
     <br>
     <footer>
         <form action="{% url 'accounts:logout' %}" method="post">
