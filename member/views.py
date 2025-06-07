@@ -80,6 +80,7 @@ class MemberDetailView(LoginRequiredMixin, View):
 class MemberUpdateView(LoginRequiredMixin,View):
     def get(self, request, id):
         member = get_object_or_404(Member, id=id) #対象のデータを取得
+        print("FILES:", request.FILES) 
         form = MemberForm(instance=member) #元のデータを初期値とする
         return render(request, "member/member_update.html", {"form":form})
     
