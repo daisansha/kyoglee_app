@@ -145,7 +145,7 @@ STATIC_URL = '/static/' #静的ファイルのURLと場所
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/" #アップロード画像等のURL
-MEDIA_ROOT = '/opt/render/project/src/media'
+# MEDIA_ROOT = '/opt/render/project/src/media'
 
 # MEDIA_ROOT = '/media' if os.environ.get('RENDER') else BASE_DIR / 'media'
 

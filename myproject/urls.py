@@ -32,8 +32,6 @@ urlpatterns = [
     path("practice/", include("practice_management.urls", namespace="practice_management")),
     path('', lambda request: redirect('/main/')),  # ← トップページを /main/ に転送
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 # 開発環境（DEBUG=True）のときだけ、media/ にアクセスできるURLパターンを追加する」
-#if settings.DEBUG:
-#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
