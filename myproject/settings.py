@@ -27,8 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False #True：開発モード ／ False：本番モード
+# DEBUG = True
+DEBUG = False #True：開発モード ／ False：本番モード
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kyoglee_management.com'] #接続を許可するドメイン（本番用）
 ALLOWED_HOSTS = ['*']
