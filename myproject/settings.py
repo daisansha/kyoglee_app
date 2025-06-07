@@ -46,7 +46,17 @@ INSTALLED_APPS = [ #有効化されたアプリ一覧（member もここで登�
     'member.apps.MemberConfig', #マイグレーションで、memberアプリを参照
     'accounting.apps.AccountingConfig',
     'practice_management.apps.PracticeManagementConfig'
+    'cloudinary',
+    'cloudinary_storage',
 ]
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dutyv76iu',
+    'API_KEY': '584513159162935',
+    'API_SECRET': 'laOSSBOjMEGVrjEdeRHdYbNNSJg',
+}
 
 MIDDLEWARE = [ #リクエスト処理の中間処理群（CSRF・セッションなど
     'django.middleware.security.SecurityMiddleware',
@@ -136,12 +146,12 @@ MEDIA_URL = "/media/" #アップロード画像等のURL
 MEDIA_ROOT = '/opt/render/project/src/media'
 
 # MEDIA_ROOT = '/media' if os.environ.get('RENDER') else BASE_DIR / 'media'
-"""
-if DEBUG:
-    MEDIA_ROOT = BASE_DIR / "media" # アップロード画像等の保存先ディレクトリ 「プロジェクトディレクトリの直下に media/ というフォルダを作り、そこにアップロード画像などを保存する」という意味
-else:
-    MEDIA_ROOT = "/media/"  # RenderでマウントするVolumeのパス
-""" 
+
+#if DEBUG:
+#    MEDIA_ROOT = BASE_DIR / "media" # アップロード画像等の保存先ディレクトリ 「プロジェクトディレクトリの直下に media/ というフォルダを作り、そこにアップロード画像などを保存する」という意味
+#else:
+#    MEDIA_ROOT = "/media/"  # RenderでマウントするVolumeのパス
+
 #ログイン・ログアウト後に遷移する画面
 LOGIN_REDIRECT_URL = "/main/"
 
