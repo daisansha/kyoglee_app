@@ -6,6 +6,9 @@ from .models import Member
 from .models import Role
 #admin.site.register(Member)
 
+from django.contrib.auth.models import User
+admin.site.register(User)
+
 admin.site.register(Role)
 
 @admin.register(Member)
