@@ -1,23 +1,19 @@
-# accounting/views/collection_views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
-from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from accounting.models.collection_models import Collection, CollectionRecord
 from accounting.forms.collection_forms import CollectionForm, CollectionRecordForm, CollectionRecordFormSet
 from member.models import Member
-from django.db import models
 
-# 会計アプリのトップ
+# ===============================
+# 会計アプリのトップページ
+# ===============================
 @login_required
 def accounting_index(request):
     return render(request, 'accounting/index.html')
 
-# 徴収作成
-from django.forms import formset_factory
-
-...
-
+# ===============================
+# 徴収項目の新規作成 + 団員別の徴収記録も同時作成
+# ===============================
 @login_required
 def collection_create(request):
     members = Member.objects.all().order_by('kyogleeid', 'name')
@@ -29,9 +25,9 @@ def collection_create(request):
 
         all_valid = True
         for member in members:
-            # 各団員のamount・statusは POSTから個別に取得
             amount_key = f"amount_{member.id}"
             status_key = f"status_{member.id}"
+
             try:
                 amount = int(request.POST.get(amount_key, 0))
                 status = request.POST.get(status_key, '未')
@@ -67,12 +63,12 @@ def collection_create(request):
         'form': form,
         'members': members,
         'record_forms': record_forms,
-        'kyoglee_list': kyoglee_list,  # ← 追加
+        'kyoglee_list': kyoglee_list,
     })
 
-
-
-# 年ごとの徴収一覧
+# ===============================
+# 年ごとの徴収一覧とステータス集計
+# ===============================
 @login_required
 def collection_list(request, year):
     collections = Collection.objects.filter(deadline__year=year).order_by('deadline')
@@ -83,6 +79,7 @@ def collection_list(request, year):
         total = records.exclude(status="不要").count()
         done = records.filter(status="済").count()
         pending = records.filter(status="未").values_list('member__name', flat=True)
+
         collection_info.append({
             'collection': col,
             'done_count': done,
@@ -95,7 +92,9 @@ def collection_list(request, year):
         'collection_info': collection_info,
     })
 
-# 詳細（readonly）
+# ===============================
+# 徴収項目の詳細（全フィールド readonly 表示）
+# ===============================
 @login_required
 def collection_detail(request, year, pk):
     collection = get_object_or_404(Collection, pk=pk)
@@ -103,7 +102,8 @@ def collection_detail(request, year, pk):
     for field in form.fields.values():
         field.disabled = True
 
-    records = CollectionRecord.objects.filter(collection=collection).select_related('member').order_by('member__kyogleeid', 'member__name')
+    records = CollectionRecord.objects.filter(collection=collection)\
+        .select_related('member').order_by('member__kyogleeid', 'member__name')
 
     return render(request, 'accounting/collection/collection_detail.html', {
         'form': form,
@@ -111,7 +111,9 @@ def collection_detail(request, year, pk):
         'records': records,
     })
 
-# 更新
+# ===============================
+# 徴収項目と個別徴収記録の更新
+# ===============================
 @login_required
 def collection_update(request, pk):
     collection = get_object_or_404(Collection, pk=pk)
@@ -127,6 +129,7 @@ def collection_update(request, pk):
             for member in members:
                 amount_key = f"amount_{member.id}"
                 status_key = f"status_{member.id}"
+
                 try:
                     amount = int(request.POST.get(amount_key, 0))
                     status = request.POST.get(status_key, '未')
@@ -155,9 +158,9 @@ def collection_update(request, pk):
         'member_records': member_records,
     })
 
-
-
-# 削除
+# ===============================
+# 徴収項目の削除（確認 → 実行）
+# ===============================
 @login_required
 def collection_delete(request, pk):
     collection = get_object_or_404(Collection, pk=pk)

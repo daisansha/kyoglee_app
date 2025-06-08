@@ -1,2 +1,2 @@
 from .expense_forms import ExpenseApplicationForm
-from .collection_forms import *
+from .collection_forms import CollectionForm, CollectionRecordForm, CollectionRecordFormSet

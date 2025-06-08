@@ -3,6 +3,10 @@ from django.forms import modelformset_factory
 from accounting.models.collection_models import Collection, CollectionRecord
 from member.models import Member
 
+# ======================================
+# 徴収項目作成用フォーム
+# （タイトル、内容、期限）
+# ======================================
 class CollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
@@ -13,9 +17,13 @@ class CollectionForm(forms.ModelForm):
             'deadline': '徴収期限日',
         }
         widgets = {
-            'deadline': forms.DateInput(attrs={'type': 'date'}),
+            'deadline': forms.DateInput(attrs={'type': 'date'}),  # 日付選択用カレンダー入力
         }
 
+# ======================================
+# 個別の徴収レコード編集用フォーム
+# （対象団員はreadonly）
+# ======================================
 class CollectionRecordForm(forms.ModelForm):
     class Meta:
         model = CollectionRecord
@@ -28,11 +36,15 @@ class CollectionRecordForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['member'].disabled = True  # 団員名は編集不可に
+        # 団員は割り当て済みのものを表示専用に
+        self.fields['member'].disabled = True
 
+# ======================================
+# 複数の徴収記録（団員ごと）を一括管理するFormSet
+# ======================================
 CollectionRecordFormSet = modelformset_factory(
     CollectionRecord,
     form=CollectionRecordForm,
-    extra=0,
-    can_delete=False
+    extra=0,          # 既存レコードのみ表示
+    can_delete=False  # レコードの削除はフォーム上では不可
 )

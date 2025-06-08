@@ -4,7 +4,7 @@
     <h2 class="page_name">経費申請の詳細</h2>
     <div class="register_contents">
         <div class="register_form">
-            {{ form.as_p }}
+            {{ form.as_p }} <!-- 全フィールドは views 側で disabled にされている -->
             {% if expense.receipt_image %}
                 <div>領収書画像:<br>
                     <img src="{{ expense.receipt_image.url }}" alt="レシート画像" width="300px">
@@ -12,10 +12,12 @@
             {% endif %}
         </div>
     </div>
+    <!-- 操作ボタン群 -->
     <div class="save_wrapper">
         <a href="{% url 'accounting:expense_update' expense.id %}" class="button">更新</a>
         <a href="{% url 'accounting:expense_list' %}" class="button">一覧に戻る</a>
     </div>
+    <!-- 削除用フォーム（別画面遷移せず実行） -->
     <form action="{% url 'accounting:expense_delete' expense.id %}" method="post" style="display:inline;">
         {% csrf_token %}
         <button type="submit" class="button delete" onclick="return confirm('本当に削除してよいですか？');">削除</button>
