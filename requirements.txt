@@ -1,20 +1,59 @@
+# ASGI サポート用のライブラリ（Django などで非同期処理を使う際に必要）
 asgiref==3.8.1
+
+# HTTPS 証明書の検証などに使われる（requests などで使用）
 certifi==2025.4.26
+
+# 文字コードの自動検出と正規化（requests などで使用）
 charset-normalizer==3.4.2
+
+# Cloudinary（画像クラウドサービス）用のPython SDK
 cloudinary==1.44.0
+
+# DATABASE_URL 文字列を Python の設定に変換（Render/Heroku などで使う）
 dj-database-url==3.0.0
+
+# Django本体（Webフレームワーク）
 Django==5.1.1
+
+# Django で Cloudinary をメディアファイルストレージとして使うための連携パッケージ
 django-cloudinary-storage==0.3.0
+
+# 本番用の WSGI サーバー（開発用 runserver の代わりに使用）
 gunicorn==23.0.0
+
+# URL の国際化対応などに使われる
 idna==3.10
+
+# パッケージの依存関係の解決などに使われる
 packaging==25.0
+
+# 画像処理（Django ImageField などで使用）
 pillow==10.4.0
+
+# PostgreSQL 用の Python ドライバ（Django が DB と通信するのに必要）
 psycopg2-binary==2.9.10
+
+# `.env` ファイルで環境変数を管理するためのライブラリ
 python-dotenv==1.1.0
+
+# HTTP リクエスト処理（API 連携など）
 requests==2.32.3
+
+# Python2/3 互換性のためのヘルパー（他のパッケージが依存している）
 six==1.17.0
+
+# SQL 文の整形（Django の内部で使用される）
 sqlparse==0.5.1
+
+# 型ヒント補助（Python3.9以前との互換など）
 typing_extensions==4.14.0
+
+# タイムゾーンデータ（Django の日時処理などに使用）
 tzdata==2024.2
+
+# HTTP 通信のための低レベルライブラリ（requests で使用される）
 urllib3==2.4.0
+
+# 静的ファイルを本番環境で効率よく配信するためのミドルウェア
 whitenoise==6.9.0
