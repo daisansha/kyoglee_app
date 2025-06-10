@@ -6,6 +6,9 @@
     <div class="register_contents">
         <form method="post" class="register_form">
             {% csrf_token %}
+            
+            <h3>会計表情報</h3>
+            {{ page_form.as_p }}
 
             <h3>収入予算</h3>
             <table>
@@ -40,7 +43,7 @@
             </div>
 
             <h3>総計</h3>
-            <table class="spacious-table" border="1">
+            <table class="member_table" border="1">
             <tbody>
                 <tr><th>収入計</th><td id="income-total">0</td></tr>
                 <tr><th>支出計</th><td id="expense-total">0</td></tr>

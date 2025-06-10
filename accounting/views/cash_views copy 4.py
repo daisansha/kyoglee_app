@@ -106,24 +106,25 @@ def cash_plan_update(request, pk):
         return redirect('accounting:cash_page', pk=pk)
 
     if request.method == 'POST':
-        page_form = CashPageForm(request.POST, instance=cash_page)
-        budget_form = CashBudgetForm(request.POST, instance=budget)
+        form = CashBudgetForm(request.POST, instance=budget)
+        if form.is_valid():
+            form.save()
 
-        if page_form.is_valid() and budget_form.is_valid():
-            page_form.save()
-            budget_form.save()
-            messages.success(request, f"会計表と予算を更新しました（{now().strftime('%Y/%m/%d %H:%M')}）")
+            # 🔽 approval_status だけ直接処理（formを使わず手動で保存）
+            approval_value = request.POST.get("approval_status")
+            if approval_value in dict(CashPage._meta.get_field("approval_status").choices):
+                cash_page.approval_status = approval_value
+                cash_page.save()
+
+            messages.success(request, f"予算を更新しました（{now().strftime('%Y/%m/%d %H:%M')}）")
             return redirect('accounting:cash_page', pk=pk)
     else:
-        page_form = CashPageForm(instance=cash_page)
-        budget_form = CashBudgetForm(instance=budget)
+        form = CashBudgetForm(instance=budget)
 
     return render(request, 'accounting/cash/cash_plan_update.html', {
         'cash_page': cash_page,
-        'page_form': page_form,
-        'form': budget_form,
+        'form': form,
     })
-
 
 # ================================
 # 出入金管理表項目追加

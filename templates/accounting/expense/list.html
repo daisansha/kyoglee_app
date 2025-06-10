@@ -21,7 +21,7 @@
                     <td>{{ expense.applicant.name }}</td>
                     <td><a href="{% url 'accounting:expense_detail' expense.id %}">{{ expense.description }}</a></td>
                     <td>{{ expense.amount }}円</td>
-                    <td>{{ expense.submitted_at|date:"Y-m-d H:i" }}</td>
+                    <td>{{ expense.submitted_at|date:"m/d" }}</td>
                     <td>{{ expense.get_approval_status_display }}</td>
                     <td>{{ expense.get_payment_status_display }}</td>
                 </tr>

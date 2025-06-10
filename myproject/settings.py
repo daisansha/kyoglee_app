@@ -15,9 +15,9 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # アクセスを許可するホスト（開発：ローカル、本番：外部からのアクセスを許可）
 if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1'] 
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.64.40'] 
 else:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['kyoglee-app.onrender.com']
 
 # アプリケーション定義（このプロジェクトに含まれるアプリ）
 INSTALLED_APPS = [ #有効化されたアプリ一覧（member もここで登録）

@@ -47,9 +47,9 @@
 
 <h4>総計</h4>
 <table class="member_table" border="1">
-    <tr class="total_result"><th>収入計</th><td id="income-summary"></td></tr>
-    <tr class="total_result"><th>支出計</th><td id="expense-summary"></td></tr>
-    <tr class="total_result"><th>差額</th><td id="balance"></td></tr>
+    <tr><th>収入計</th><td id="income-summary"></td></tr>
+    <tr><th>支出計</th><td id="expense-summary"></td></tr>
+    <tr><th>差額</th><td id="balance"></td></tr>
 </table>
 
             <button class="button_wrapper">
@@ -102,7 +102,7 @@
 </table>
 
             <button class="button_wrapper">
-                <a href="{% url 'accounting:cash_plan_update' pk=cash_page.id %}" class="button">予算を更新</a>
+                <a href="{% url 'accounting:cash_plan_update' pk=cash_page.id %}" class="button">予算詳細／更新</a>
             </button>
             <button class="button_wrapper">
                 <a href="{% url 'accounting:cash_page_delete' pk=cash_page.id %}" class="button">会計表を削除</a>
@@ -115,12 +115,8 @@
     .spacious-table td {
         padding: 8px;
     }
-
     .total-row td {
         background-color:gainsboro;
-    }
-    .total_result th{
-        background-color:white ;
     }
 </style>
 
