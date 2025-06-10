@@ -35,4 +35,6 @@ urlpatterns = [
     # --- 入出金管理機能（cash） ---
     path('cash/create/', cash_views.cash_page_create, name='cash_page_create'),
     path('cash/list/', cash_views.cash_page_list, name='cash_page_list'),
+    path("cash/<uuid:pk>/", cash_views.cash_page, name="cash_page"),
+
 ]

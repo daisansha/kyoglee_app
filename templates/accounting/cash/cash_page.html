@@ -1,0 +1,65 @@
+{% extends "base/accounting_base.html" %}
+{% load custom_filters %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">{{ cash_page.title }}（{{ cash_page.year }}年）</h2>
+
+    <!-- 出入金管理表 -->
+    <h3>出入金管理表</h3>
+    <h4>収入</h4>
+    <table border="1">
+        <thead><tr><th>日付</th><th>項目</th><th>金額</th></tr></thead>
+        <tbody>
+            {% for item in income_items %}
+            <tr>
+                <td>{{ item.date }}</td>
+                <td><a href="{% url 'accounting:cash_item_detail' pk=cash_page.id item_id=item.id %}">{{ item.description }}</a></td>
+                <td>{{ item.amount }}</td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="2"><strong>収入計</strong></td><td>{{ income_total }}</td></tr>
+        </tbody>
+    </table>
+
+    <h4>支出</h4>
+    <table border="1">
+        <thead><tr><th>日付</th><th>項目</th><th>金額</th></tr></thead>
+        <tbody>
+            {% for item in expense_items %}
+            <tr>
+                <td>{{ item.date }}</td>
+                <td><a href="{% url 'accounting:cash_item_detail' pk=cash_page.id item_id=item.id %}">{{ item.description }}</a></td>
+                <td>{{ item.amount }}</td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="2"><strong>支出計</strong></td><td>{{ expense_total }}</td></tr>
+            <tr><td colspan="2"><strong>差額</strong></td><td>{{ balance }}</td></tr>
+        </tbody>
+    </table>
+
+    <!-- 予実管理表 -->
+    <h3>予実管理表</h3>
+    <table border="1">
+        <thead><tr><th>科目</th><th>予算</th><th>実費</th></tr></thead>
+        <tbody>
+            {% for field in budget._meta.fields %}
+                {% if field.name not in ('id', 'cash_page') %}
+                <tr>
+                    <td>{{ field.verbose_name }}</td>
+                    <td>{{ budget|attr:field.name }}</td>
+                    <td>{{ actuals|get_item:field.verbose_name|default:0 }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            <tr><td colspan="3">
+                <a href="{% url 'accounting:cash_plan_update' pk=cash_page.id %}" class="button">予算を更新する</a>
+            </td></tr>
+        </tbody>
+    </table>
+
+    <!-- ステータス -->
+    <p><strong>承認ステータス：</strong>{{ cash_page.approval_status }}</p>
+</div>
+
+{% endblock %}

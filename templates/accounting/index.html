@@ -5,6 +5,11 @@
     <div class="top_contents">
         <h2 class="page_name">会計管理</h2>
         <div class="contents_item">
+            <h3 class="contents_name">会計表</h3>
+            <div class="choice_group">
+                <a href = "{% url 'accounting:cash_page_create' %}" class="choice">会計表作成</a>
+                <a href = "{% url 'accounting:cash_page_list' %}" class="choice">会計表一覧</a>
+            </div>
             <h3 class="contents_name">経費</h3>
             <div class="choice_group">
                 <a href = "{% url 'accounting:expense_apply' %}" class="choice">経費申請</a>
