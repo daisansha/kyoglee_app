@@ -1,0 +1,44 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">予算の更新：{{ cash_page.title }}（{{ cash_page.year }}年）</h2>
+    <div class="register_contents">
+        <form method="post" class="register_form">
+            {% csrf_token %}
+
+            <h3>収入予算</h3>
+            <table>
+                <tr><td>団員徴収</td><td>{{ form.member_fee }}</td></tr>
+                <tr><td>現金／預金</td><td>{{ form.cash_savings }}</td></tr>
+                <tr><td>チケット売上</td><td>{{ form.ticket }}</td></tr>
+                <tr><td>広告</td><td>{{ form.ads }}</td></tr>
+                <tr><td>寄付</td><td>{{ form.donation }}</td></tr>
+                <tr><td>50周年基金</td><td>{{ form.anniversary }}</td></tr>
+                <tr><td>その他</td><td>{{ form.income_other }}</td></tr>
+            </table>
+
+            <h3>支出予算</h3>
+            <table>
+                <tr><td>施設／設備費</td><td>{{ form.facility }}</td></tr>
+                <tr><td>会館使用料</td><td>{{ form.venue }}</td></tr>
+                <tr><td>印刷費</td><td>{{ form.printing }}</td></tr>
+                <tr><td>御礼</td><td>{{ form.honorarium }}</td></tr>
+                <tr><td>食費</td><td>{{ form.food }}</td></tr>
+                <tr><td>宿泊費</td><td>{{ form.lodging }}</td></tr>
+                <tr><td>楽譜</td><td>{{ form.score }}</td></tr>
+                <tr><td>雑費</td><td>{{ form.misc }}</td></tr>
+                <tr><td>その他</td><td>{{ form.expense_other }}</td></tr>
+            </table>
+
+            <h3>承認ステータス</h3>
+            <div>{{ form.approval_status }}</div>
+
+            <div class="save_wrapper">
+                <button type="submit" class="save">更新</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

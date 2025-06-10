@@ -53,27 +53,6 @@ class CashBudgetForm(forms.ModelForm):
 # 出入金項目追加フォーム
 # =============================
 class CashItemForm(forms.ModelForm):
-    SUBJECT_CHOICES = [
-        ("団員徴収", "団員徴収"),
-        ("現金／預金", "現金／預金"),
-        ("チケット売上", "チケット売上"),
-        ("広告", "広告"),
-        ("寄付", "寄付"),
-        ("50周年基金", "50周年基金"),
-        ("その他（収入）", "その他（収入）"),
-        ("施設／設備費", "施設／設備費"),
-        ("会館使用料", "会館使用料"),
-        ("印刷費", "印刷費"),
-        ("御礼", "御礼"),
-        ("食費", "食費"),
-        ("宿泊費", "宿泊費"),
-        ("楽譜", "楽譜"),
-        ("雑費", "雑費"),
-        ("その他（支出）", "その他（支出）"),
-    ]
-
-    subject = forms.ChoiceField(choices=SUBJECT_CHOICES, label="科目")
-
     class Meta:
         model = CashItem
         exclude = ['cash_page']
@@ -88,6 +67,7 @@ class CashItemForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'cash_type': forms.Select(attrs={'class': 'form-control'}),
+            'subject': forms.TextInput(attrs={'placeholder': '例：チケット売上'}),
             'description': forms.TextInput(attrs={'placeholder': '例：情宣チケット'}),
             'amount': forms.NumberInput(attrs={'min': 0}),
             'notes': forms.Textarea(attrs={'rows': 2}),

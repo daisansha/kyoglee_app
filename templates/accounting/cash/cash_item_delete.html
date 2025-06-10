@@ -1,0 +1,26 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">項目削除の確認</h2>
+
+    <div class="register_contents">
+        <p>以下の出入金項目を削除してもよろしいですか？</p>
+
+        <ul>
+            <li>日付: {{ item.date }}</li>
+            <li>収支: {{ item.get_cash_type_display }}</li>
+            <li>科目: {{ item.get_subject_display }}</li>
+            <li>項目: {{ item.description }}</li>
+            <li>金額: {{ item.amount }} 円</li>
+        </ul>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="delete">削除する</button>
+            <a href="{% url 'accounting:cash_page' pk=cash_page.id %}" class="cancel">キャンセル</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

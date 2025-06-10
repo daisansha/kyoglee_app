@@ -295,3 +295,10 @@ input[type="checkbox"] {
 .active-row {
     background-color: #e0f7fa;
 }
+
+.delete_form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;  /* 左寄せにしたい場合 */
+}

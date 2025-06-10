@@ -36,5 +36,9 @@ urlpatterns = [
     path('cash/create/', cash_views.cash_page_create, name='cash_page_create'),
     path('cash/list/', cash_views.cash_page_list, name='cash_page_list'),
     path("cash/<uuid:pk>/", cash_views.cash_page, name="cash_page"),
-
+    path("cash/<uuid:pk>/update/", cash_views.cash_plan_update, name="cash_plan_update"),
+    path("cash/<uuid:pk>/item/add/", cash_views.cash_item_add, name="cash_item_add"),
+    path("cash/<uuid:pk>/item/<int:item_id>/", cash_views.cash_item_detail, name="cash_item_detail"),
+    path("cash/<uuid:pk>/item/<int:item_id>/delete/", cash_views.cash_item_delete, name="cash_item_delete"),
+    path("cash/<uuid:pk>/delete/", cash_views.cash_page_delete, name="cash_page_delete"),
 ]
