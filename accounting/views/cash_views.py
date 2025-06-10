@@ -72,6 +72,20 @@ def cash_page(request, pk):
                 value = getattr(budget, field.name)
                 budget_fields.append((label, value))
 
+    # ▼ 集計追加：予算・実費の小計および差額を算出
+    income_labels = [
+        "団員徴収", "現金／預金", "チケット売上", "広告",
+        "寄付", "50周年基金", "その他（収入）"
+    ]
+    expense_labels = [
+        "施設／設備費", "会館使用料", "印刷費", "御礼",
+        "食費", "宿泊費", "楽譜", "雑費", "その他（支出）"
+    ]
+
+    # budget_values: {ラベル: 予算}
+    #budget_values = dict(budget_fields)
+    budget_values = {label: value for (label, value) in budget_fields}
+
     return render(request, 'accounting/cash/cash_page.html', {
         'cash_page': cash_page,
         'budget': budget,
@@ -82,6 +96,9 @@ def cash_page(request, pk):
         #'expense_total': expense_total,
         #'balance': balance,
         'actuals': dict(actuals),
+        'budget_values': budget_values,
+        'income_labels': income_labels,
+        'expense_labels': expense_labels,
     })
 
 # ================================
