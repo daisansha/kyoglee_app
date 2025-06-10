@@ -33,6 +33,15 @@
                 <tr><td>雑費</td><td>{{ budget_form.misc }}</td></tr>
                 <tr><td>その他</td><td>{{ budget_form.expense_other }}</td></tr>
             </table>
+            
+            <h3>総計</h3>
+            <table class="spacious-table" border="1">
+            <tbody>
+                <tr><th>収入計</th><td id="income-total">0</td></tr>
+                <tr><th>支出計</th><td id="expense-total">0</td></tr>
+                <tr><th>差額</th><td id="balance">0</td></tr>
+            </tbody>
+            </table>
 
             <div class="save_wrapper">
                 <button type="submit" class="save">作成</button>
@@ -40,5 +49,49 @@
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    function parseValue(input) {
+        return parseInt(input.value) || 0;
+    }
+
+    function updateTotals() {
+        const incomeFields = [
+            'id_member_fee', 'id_cash_savings', 'id_ticket',
+            'id_ads', 'id_donation', 'id_anniversary', 'id_income_other'
+        ];
+        const expenseFields = [
+            'id_facility', 'id_venue', 'id_printing', 'id_honorarium',
+            'id_food', 'id_lodging', 'id_score', 'id_misc', 'id_expense_other'
+        ];
+
+        let incomeTotal = 0;
+        let expenseTotal = 0;
+
+        incomeFields.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) incomeTotal += parseValue(input);
+        });
+
+        expenseFields.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) expenseTotal += parseValue(input);
+        });
+
+        document.getElementById('income-total').innerText = incomeTotal.toLocaleString();
+        document.getElementById('expense-total').innerText = expenseTotal.toLocaleString();
+        document.getElementById('balance').innerText = (incomeTotal - expenseTotal).toLocaleString();
+    }
+
+    // 入力のたびに合計を再計算
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', updateTotals);
+    });
+
+    // 初期表示時も一度計算
+    updateTotals();
+});
+</script>
 
 {% endblock %}

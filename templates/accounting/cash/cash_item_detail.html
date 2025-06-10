@@ -19,14 +19,13 @@
             <div class="save_wrapper">
                 <button type="submit" class="save">更新</button>
             </div>
+            
+                <form method="post" action="{% url 'accounting:cash_item_delete' pk=cash_page.id item_id=item.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="button delete" onclick="return confirm('本当にこの項目を削除してもよろしいですか？');">削除</button>
+                </form>
+            
         </form>
-
-        <div class="delete_wrapper">
-            <form method="post" action="{% url 'accounting:cash_item_delete' pk=cash_page.id item_id=item.id %}">
-                {% csrf_token %}
-                <button type="submit" class="delete">削除</button>
-            </form>
-        </div>
     </div>
 </div>
 

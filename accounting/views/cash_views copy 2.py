@@ -54,9 +54,9 @@ def cash_page(request, pk):
     expense_items = items.filter(cash_type='支出')
 
     # 合計計算
-    # income_total = income_items.aggregate(Sum('amount'))['amount__sum'] or 0
-    # expense_total = expense_items.aggregate(Sum('amount'))['amount__sum'] or 0
-    # balance = income_total - expense_total
+    income_total = income_items.aggregate(Sum('amount'))['amount__sum'] or 0
+    expense_total = expense_items.aggregate(Sum('amount'))['amount__sum'] or 0
+    balance = income_total - expense_total
 
     # 実費（subjectごとの合計）
     actuals = defaultdict(int)
@@ -78,9 +78,9 @@ def cash_page(request, pk):
         'budget_fields': budget_fields,  # ← 新たに追加されたcontext
         'income_items': income_items,
         'expense_items': expense_items,
-        #'income_total': income_total,
-        #'expense_total': expense_total,
-        #'balance': balance,
+        'income_total': income_total,
+        'expense_total': expense_total,
+        'balance': balance,
         'actuals': dict(actuals),
     })
 
@@ -99,17 +99,13 @@ def cash_plan_update(request, pk):
     if request.method == 'POST':
         form = CashBudgetForm(request.POST, instance=budget)
         if form.is_valid():
-            form.save()
-
-            # 🔽 approval_status だけ直接処理（formを使わず手動で保存）
-            approval_value = request.POST.get("approval_status")
-            if approval_value in dict(CashPage._meta.get_field("approval_status").choices):
-                cash_page.approval_status = approval_value
-                cash_page.save()
-
+            updated_budget = form.save()
             messages.success(request, f"予算を更新しました（{now().strftime('%Y/%m/%d %H:%M')}）")
             return redirect('accounting:cash_page', pk=pk)
     else:
+        # In the `cash_plan_update` view function, the line `form = CashBudgetForm(instance=budget)`
+        # is creating a form instance for updating the budget information associated with a specific
+        # cash page.
         form = CashBudgetForm(instance=budget)
 
     return render(request, 'accounting/cash/cash_plan_update.html', {

@@ -5,19 +5,24 @@
     <h2 class="page_name">会計表削除の確認</h2>
 
     <div class="register_contents">
+        <div style="display: block; text-align: center;">
         <h3>以下の会計表を削除してもよろしいですか？</h3>
-        <ul>
-            <li>年度：{{ cash_page.year }}</li>
-            <li>会計表名：{{ cash_page.title }}</li>
-        </ul>
 
-<form method="post" class="delete_form">
-    {% csrf_token %}
-    <button type="submit" class="delete">削除する</button>
-    <a href="{% url 'accounting:cash_page' pk=cash_page.id %}" class="cancel" style="display: block; margin-top: 8px;">キャンセル</a>
+        <p style="font-size: 18px; margin-left: 20px;">
+            ・年度：{{ cash_page.year }}<br>
+            ・会計表名：{{ cash_page.title }}
+        </p>
+        </div>
+    </div>
 
-</form>
+    <div style="text-align: center; margin-top: 20px;">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="delete" style="display: block; margin: 0 auto 10px;">削除する</button>
+            <a href="{% url 'accounting:cash_page' pk=cash_page.id %}" style="display: block;">キャンセル</a>
+        </form>
     </div>
 </div>
+
 {% endblock %}
 

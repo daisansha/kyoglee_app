@@ -54,9 +54,9 @@ def cash_page(request, pk):
     expense_items = items.filter(cash_type='支出')
 
     # 合計計算
-    # income_total = income_items.aggregate(Sum('amount'))['amount__sum'] or 0
-    # expense_total = expense_items.aggregate(Sum('amount'))['amount__sum'] or 0
-    # balance = income_total - expense_total
+    income_total = income_items.aggregate(Sum('amount'))['amount__sum'] or 0
+    expense_total = expense_items.aggregate(Sum('amount'))['amount__sum'] or 0
+    balance = income_total - expense_total
 
     # 実費（subjectごとの合計）
     actuals = defaultdict(int)
@@ -78,9 +78,9 @@ def cash_page(request, pk):
         'budget_fields': budget_fields,  # ← 新たに追加されたcontext
         'income_items': income_items,
         'expense_items': expense_items,
-        #'income_total': income_total,
-        #'expense_total': expense_total,
-        #'balance': balance,
+        'income_total': income_total,
+        'expense_total': expense_total,
+        'balance': balance,
         'actuals': dict(actuals),
     })
 

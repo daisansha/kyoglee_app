@@ -54,9 +54,9 @@ def cash_page(request, pk):
     expense_items = items.filter(cash_type='支出')
 
     # 合計計算
-    # income_total = income_items.aggregate(Sum('amount'))['amount__sum'] or 0
-    # expense_total = expense_items.aggregate(Sum('amount'))['amount__sum'] or 0
-    # balance = income_total - expense_total
+    income_total = income_items.aggregate(Sum('amount'))['amount__sum'] or 0
+    expense_total = expense_items.aggregate(Sum('amount'))['amount__sum'] or 0
+    balance = income_total - expense_total
 
     # 実費（subjectごとの合計）
     actuals = defaultdict(int)
@@ -71,17 +71,47 @@ def cash_page(request, pk):
                 label = field.verbose_name
                 value = getattr(budget, field.name)
                 budget_fields.append((label, value))
+                
+    # ▼ 集計追加：予算・実費の小計および差額を算出
+    income_labels = [
+        "団員徴収", "現金／預金", "チケット売上", "広告",
+        "寄付", "50周年基金", "その他（収入）"
+    ]
+    expense_labels = [
+        "施設／設備費", "会館使用料", "印刷費", "御礼",
+        "食費", "宿泊費", "楽譜", "雑費", "その他（支出）"
+    ]
 
+    # budget_values: {ラベル: 予算}
+    #budget_values = dict(budget_fields)
+    budget_values = {label: value for (label, value) in budget_fields}
+
+    income_budget_total = sum(budget_values.get(label, 0) for label in income_labels)
+    expense_budget_total = sum(budget_values.get(label, 0) for label in expense_labels)
+    income_actual_total = sum(actuals.get(label, 0) for label in income_labels)
+    expense_actual_total = sum(actuals.get(label, 0) for label in expense_labels)
+    budget_diff = income_budget_total - expense_budget_total
+    actual_diff = income_actual_total - expense_actual_total
+    
     return render(request, 'accounting/cash/cash_page.html', {
         'cash_page': cash_page,
         'budget': budget,
-        'budget_fields': budget_fields,  # ← 新たに追加されたcontext
+        'budget_fields': budget_fields,
         'income_items': income_items,
         'expense_items': expense_items,
-        #'income_total': income_total,
-        #'expense_total': expense_total,
-        #'balance': balance,
+        'income_total': income_total,
+        'expense_total': expense_total,
+        'balance': balance,
         'actuals': dict(actuals),
+        'income_labels': income_labels,
+        'expense_labels': expense_labels,
+        'income_budget_total': income_budget_total,
+        'expense_budget_total': expense_budget_total,
+        'income_actual_total': income_actual_total,
+        'expense_actual_total': expense_actual_total,
+        'budget_diff': budget_diff,
+        'actual_diff': actual_diff,
+        'budget_values': budget_values,  # ← これが必要
     })
 
 # ================================
@@ -116,6 +146,7 @@ def cash_plan_update(request, pk):
         'cash_page': cash_page,
         'form': form,
     })
+
 
 # ================================
 # 出入金管理表項目追加
