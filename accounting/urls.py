@@ -1,8 +1,9 @@
 from django.urls import path
 
-# 経費申請用ビューと徴収用ビューをインポート
+# 経費申請用ビュー、徴収用ビュー、入出金管理用ビューをインポート
 from accounting.views import expense_views
 from accounting.views import collection_views
+from accounting.views import cash_views
 
 # アプリケーション名を指定（テンプレート内で名前空間付きでURLを参照できる）
 # 例：{% url 'accounting:expense_apply' %}
@@ -30,4 +31,8 @@ urlpatterns = [
     path('collection/<int:year>/<int:pk>/', collection_views.collection_detail, name='collection_detail'),  # 詳細
     path('collection/<int:pk>/update/', collection_views.collection_update, name='collection_update'),      # 更新
     path('collection/<int:pk>/delete/', collection_views.collection_delete, name='collection_delete'),      # 削除
+    
+    # --- 入出金管理機能（cash） ---
+    path('cash/create/', cash_views.cash_page_create, name='cash_page_create'),
+    path('cash/list/', cash_views.cash_page_list, name='cash_page_list'),
 ]

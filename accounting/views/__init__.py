@@ -13,3 +13,7 @@ from .collection_views import (
     collection_update,
     collection_delete
 )
+
+from .cash_views import (
+    cash_page_create, cash_page_list
+)

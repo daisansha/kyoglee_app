@@ -1,0 +1,32 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">会計表一覧</h2>
+    <div class="register_contents">
+        <table class="member_table" border="1">
+            <thead>
+                <tr>
+                    <th>年度</th>
+                    <th>会計表名</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in pages %}
+                <tr>
+                    <td>{{ page.year }}</td>
+                    <td>
+                        <a href="{% url 'accounting:cash_page' pk=page.id %}">
+                            {{ page.title }}
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2">まだ会計表がありません。</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

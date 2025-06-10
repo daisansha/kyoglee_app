@@ -1,0 +1,44 @@
+{% extends "base/accounting_base.html" %}
+{% block body %}
+
+<div class="contents">
+    <h2 class="page_name">会計表の作成</h2>
+    <div class="register_contents">
+        <form method="post" class="register_form">
+            {% csrf_token %}
+
+            <h3>会計表情報</h3>
+            {{ page_form.as_p }}
+
+            <h3>収入予算</h3>
+            <table>
+                <tr><td>団員徴収</td><td>{{ budget_form.member_fee }}</td></tr>
+                <tr><td>現金／預金</td><td>{{ budget_form.cash_savings }}</td></tr>
+                <tr><td>チケット売上</td><td>{{ budget_form.ticket }}</td></tr>
+                <tr><td>広告</td><td>{{ budget_form.ads }}</td></tr>
+                <tr><td>寄付</td><td>{{ budget_form.donation }}</td></tr>
+                <tr><td>50周年基金</td><td>{{ budget_form.anniversary }}</td></tr>
+                <tr><td>その他</td><td>{{ budget_form.income_other }}</td></tr>
+            </table>
+
+            <h3>支出予算</h3>
+            <table>
+                <tr><td>施設／設備費</td><td>{{ budget_form.facility }}</td></tr>
+                <tr><td>会館使用料</td><td>{{ budget_form.venue }}</td></tr>
+                <tr><td>印刷費</td><td>{{ budget_form.printing }}</td></tr>
+                <tr><td>御礼</td><td>{{ budget_form.honorarium }}</td></tr>
+                <tr><td>食費</td><td>{{ budget_form.food }}</td></tr>
+                <tr><td>宿泊費</td><td>{{ budget_form.lodging }}</td></tr>
+                <tr><td>楽譜</td><td>{{ budget_form.score }}</td></tr>
+                <tr><td>雑費</td><td>{{ budget_form.misc }}</td></tr>
+                <tr><td>その他</td><td>{{ budget_form.expense_other }}</td></tr>
+            </table>
+
+            <div class="save_wrapper">
+                <button type="submit" class="save">作成</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
