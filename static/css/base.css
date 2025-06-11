@@ -755,7 +755,7 @@ input[type="checkbox"] {
     }
 }
 
-/* 徴収作成 a */
+/* 徴収作成 */
 @media screen and (max-width: 670px) {
     /* 徴収額（円） → 幅を縮める */
     td input[type="number"] {
