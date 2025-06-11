@@ -13,13 +13,11 @@
 
             <p>{{ form.members.label }}:</p>
 
-            <!-- ✅ すべて選択 -->
             <label style="display:block; margin-bottom: 10px;">
                 <input type="checkbox" id="select-all-members">
                 すべて選択 / すべて解除
             </label>
 
-            <!-- ✅ チェックボックスを美しく配置 -->
             <div class="checkbox-group">
                 {% for checkbox in form.members %}
                     <div class="checkbox-item">

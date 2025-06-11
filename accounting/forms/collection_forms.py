@@ -13,10 +13,12 @@ class CollectionForm(forms.ModelForm):
         fields = ['title', 'content', 'deadline']
         labels = {
             'title': '徴収項目',
-            'content': '徴収内容',
+            'content': '徴収内容詳細',
             'deadline': '徴収期限日',
         }
         widgets = {
+            'title': forms.TextInput(attrs={'placeholder': '例）2025年度前期団費'}),
+            'content': forms.TextInput(attrs={'rows': 5, 'cols': 40, 'class': 'responsive-textarea'}),
             'deadline': forms.DateInput(attrs={'type': 'date'}),  # 日付選択用カレンダー入力
         }
 
@@ -30,8 +32,8 @@ class CollectionRecordForm(forms.ModelForm):
         fields = ['member', 'amount', 'status']
         labels = {
             'member': '団員',
-            'amount': '徴収額（円）',
-            'status': '徴収ステータス',
+            'amount': '徴収額',
+            'status': '徴収',
         }
 
     def __init__(self, *args, **kwargs):

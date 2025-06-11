@@ -10,8 +10,8 @@
                 <thead>
                     <tr>
                         <th style="min-width: 160px;">団員</th>
-                        <th>徴収額（円）</th>
-                        <th>徴収ステータス</th>
+                        <th>徴収額</th>
+                        <th>徴収</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,12 +32,8 @@
     </div>
 
     <div class="save_wrapper">
-        <a href="{% url 'accounting:collection_update' collection.id %}" class="button">更新</a>
+        <a href="{% url 'accounting:collection_update' collection.id %}" class="button">更新ページ</a>
         <a href="{% url 'accounting:collection_list' year=collection.deadline.year %}" class="button">一覧に戻る</a>
-        <form action="{% url 'accounting:collection_delete' collection.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="button delete" onclick="return confirm('本当に削除してよいですか？');">削除</button>
-        </form>
     </div>
 </div>
 

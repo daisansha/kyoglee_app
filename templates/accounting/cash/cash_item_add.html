@@ -2,20 +2,13 @@
 {% block body %}
 
 <div class="contents">
-    <h2 class="page_name">出入金項目の追加（{{ cash_page.title }}）</h2>
+    <h2 class="page_name">{{ cash_page.title }}</h2>
+    <h2 class="page_name">出入金項目の追加</h2>
 
     <div class="register_contents">
         <form method="post" class="register_form">
             {% csrf_token %}
-            <table>
-                <tr><td>日付</td><td>{{ form.date }}</td></tr>
-                <tr><td>収支</td><td>{{ form.cash_type }}</td></tr>
-                <tr><td>科目</td><td>{{ form.subject }}</td></tr>
-                <tr><td>項目</td><td>{{ form.description }}</td></tr>
-                <tr><td>金額</td><td>{{ form.amount }}</td></tr>
-                <tr><td>備考</td><td>{{ form.notes }}</td></tr>
-            </table>
-
+            {{ form.as_p }}
             <div class="save_wrapper">
                 <button type="submit" class="save">追加</button>
             </div>

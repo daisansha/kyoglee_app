@@ -38,7 +38,11 @@ class MemberCreateView(LoginRequiredMixin, View):
 # ===============================
 class MemberListView(LoginRequiredMixin, View):
     def get(self, request):
-        member_list = Member.objects.order_by("kyogleeid")
+        sort_key = request.GET.get('sort')
+        if sort_key in ['name', 'kyogleeid', 'joinyear', 'part', 'faculty', 'role']:
+            member_list = Member.objects.all().order_by(sort_key)
+        else:
+            member_list = Member.objects.all()
         return render(request, "member/member_list.html", {"member_list": member_list})
 
 # ===============================

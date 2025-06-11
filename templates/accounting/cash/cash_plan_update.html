@@ -56,6 +56,20 @@
             </div>
         </form>
     </div>
+    <div class="delete_bottom_right">
+    {% if user.is_staff or user.member.has_role %}
+    <form action="{% url 'accounting:cash_page_delete' pk=cash_page.id %}" method="post">
+    {% csrf_token %}
+        <button type="submit" class="delete" onclick="return confirm('本当に削除してもよろしいですか？');">
+            会計表を削除
+        </button>
+    </form>
+    {% else %}
+    <button type="button" class="delete disabled" onclick="alert('削除権限がありません');">
+        会計表を削除
+    </button>
+    {% endif %}
+    </div>
 </div>
 
 <script>

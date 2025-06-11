@@ -3,97 +3,11 @@
 {% load custom_filters %}
 {% block body %}
 
-<style>
-    .practice-row {
-        background-color: #d0f0ff; /* 練習：水色 */
-    }
-    .matsuoka_practice-row {
-        background-color: #a0c4ff; /* 松岡先生練習：青 */
-    }
-    .motoyama_practice-row {
-        background-color:rgb(250, 128, 144); /* 本山先生練習：赤 */
-    }
-    .piano_practice-row {
-        background-color:rgb(221, 128, 250); /* ピアノ先生練習：赤 */
-    }
-    .concert-row {
-        background-color: #d0ffd0; /* 演奏会：緑 */
-    }
-    .welcome-row {
-        background-color: #fff6a0; /* 新歓：黄色 */
-    }
-    .training_camp-row {
-        background-color: #ffd8a0; /* 合宿：オレンジ */
-    }
-
-    .table_scroll_wrapper {
-        overflow-x: auto;
-        overflow-y: auto;
-        max-height: 600px; /* 表の最大高さを設定（調整可能） */
-    }
-
-    .practice_table {
-        border-collapse: collapse;
-        min-width: max-content; /* 横スクロールを可能に */
-    }
-
-    .practice_table thead th {
-    position: sticky;
-    top: 0;
-    background-color: #f9f9f9;
-    z-index: 3;
-    }
-    .practice_table th, .practice_table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-        white-space: nowrap;
-        text-align: center;
-    }
-
-    .sticky-col {
-        position: sticky;
-        left: 0;
-        z-index: 2;
-        white-space: nowrap;
-        background-color: #f9f9f9; /* ← 背景色を追加して透過を防止 */
-    }
-
-    .sticky-col a {
-        font-weight: bold;
-        color: #333;
-    }
-    
-    .practice_table select {
-    appearance: none;       /* モダンブラウザ */
-    -webkit-appearance: none; /* Safari対応 */
-    -moz-appearance: none;    /* Firefox対応 */
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px;
-    text-align: center;
-    }
-    /* 左上角のセル（例：「5月」セル）を最前面に */
-    .practice_table thead .sticky-col {
-        z-index: 4;  /* 1行目＋1列目両方の上に */
-        background-color: #f9f9f9;
-        font-weight: bold;
-    }
-    .member-col {
-    width: 2em;
-    min-width: 2em;
-    max-width: 2em;
-    white-space: normal;
-    word-break: break-word;
-    text-align: center;
-    white-space: normal !important;  /* ← nowrap を強制解除 */
-    }
-</style>
-
 <div class="contents">
     <h2 class="page_name">{{ practice_month.year }}年{{ practice_month.month }}月 練習管理</h2>
     <h3>〇：出席　　△：途中参加　　✕：欠席</h3>
-    <h3>日付の所から詳細画面を開いて、練習内容の詳細を記録、確認してください。</h3>
+    <h3>・練習がある日の出欠を、各自事前に記入してください。</h3>
+    <h3>・日付の所を押して練習詳細画面を開いて、練習内容の詳細を記録、確認してください。</h3>
     <form method="POST">
     {% csrf_token %}
 
@@ -161,7 +75,7 @@
 
         <!-- 合計行 -->
         <tr>
-            <td>合計</td>
+            <td class="sticky-col">合計</td>
             <td>-</td>
             <td>-</td>
             {% for member in members %}
@@ -172,19 +86,27 @@
         </tbody>
         </table>
     </div>
-
+    <h3>・確定後、反映まで少し時間がかかります。</h3>
     <div class="save_wrapper">
         <button type="submit" class="save">確定</button>
     </div>
     </form>
 
     {% if user.is_staff or user.member.has_role %}
-    <form action="{% url 'practice_management:delete_practice_month' year=practice_month.year month=practice_month.month %}" method="post" style="display:inline;">
+    <form action="{% url 'practice_management:delete_practice_month' year=practice_month.year month=practice_month.month %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="delete_button" onclick="return confirm('本当に削除してもよろしいですか？');">
+        <div class="delete_wrapper">
+            <button type="submit" class="delete" onclick="return confirm('本当に削除してもよろしいですか？');">
+                この月の表を削除
+            </button>
+        </div>
+    </form>
+    {% else %}
+    <div class="delete_wrapper">
+        <button type="button" class="delete disabled" onclick="alert('削除権限がありません');">
             この月の表を削除
         </button>
-    </form>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

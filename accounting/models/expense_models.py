@@ -28,6 +28,13 @@ class ExpenseApplication(models.Model):
         verbose_name="申請者"
     )
 
+    # 申請項目
+    title = models.CharField(
+        max_length=50,
+        verbose_name="項目",
+        default="無題"
+    )
+
     # 経費の内容（用途）
     description = models.CharField(
         max_length=255,

@@ -6,8 +6,9 @@ from member.models import Member  # 団員モデルを参照
 # ==========================================
 class Collection(models.Model):
     title = models.CharField(
-        max_length=255,
-        verbose_name="徴収項目"
+        max_length=50,
+        verbose_name="徴収項目",
+        default="無題"
     )  # 徴収の名前（例：2025年5月団費）
 
     content = models.TextField(

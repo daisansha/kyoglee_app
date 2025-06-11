@@ -24,14 +24,16 @@
                 <input type="number" id="kyoglee_amount" placeholder="例：1000">
                 <button type="button" onclick="applyKyogleeAmount()" class="wide-button">選択期に適用</button>
             </div>
+            <br>
 
             <!-- 団員ごとの個別入力 -->
+            <div>
             <table border="1">
                 <thead>
                     <tr>
                         <th>団員</th>
-                        <th>徴収額（円）</th>
-                        <th>徴収ステータス</th>
+                        <th>徴収額</th>
+                        <th>徴収</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,9 +52,10 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
 
             <div class="save_wrapper">
-                <button type="submit" class="save">保存</button>
+                <button type="submit" class="save">作成</button>
             </div>
         </form>
     </div>
@@ -87,18 +90,6 @@ function applyKyogleeAmount() {
 </script>
 
 <style>
-    table input[type="number"],
-    table select {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 4px;
-    }
-    .wide-button {
-        padding: 10px 15px;
-        font-size: 16px;
-        margin-left: 8px;
-        cursor: pointer;
-    }
     th {
         padding: 8px 12px;
         text-align: left;

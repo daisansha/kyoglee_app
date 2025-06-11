@@ -176,18 +176,15 @@ def cash_item_detail(request, pk, item_id):
 # ================================
 @login_required
 def cash_item_delete(request, pk, item_id):
-    cash_page = get_object_or_404(CashPage, pk=pk)
-    item = get_object_or_404(CashItem, id=item_id, cash_page=cash_page)
-
     if request.method == 'POST':
+        cash_page = get_object_or_404(CashPage, pk=pk)
+        item = get_object_or_404(CashItem, id=item_id, cash_page=cash_page)
         item.delete()
         messages.success(request, "項目を削除しました。")
         return redirect('accounting:cash_page', pk=pk)
-
-    return render(request, 'accounting/cash/cash_item_delete.html', {
-        'cash_page': cash_page,
-        'item': item,
-    })
+    else:
+        # POST以外でアクセスされた場合はエラーを返す（不要なら削除）
+        return redirect('accounting:cash_page', pk=pk)
 
 # ================================
 # 会計表削除

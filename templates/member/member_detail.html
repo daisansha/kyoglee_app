@@ -1,4 +1,4 @@
-{% extends "base/member_base.html" %}
+{% extends "base/base.html" %}
 {% block body %}
 
 <div class="contents">
@@ -11,10 +11,11 @@
                     <img src="{{ member.picture.url }}" alt="団員写真" width="300px">
                 </div>
             {% endif %}
+            
             {% if collection_records %}
-            <div class="collection_history">
+            <div class="collection_history table_scroll_wrapper">
                 <h3>💰 徴収記録</h3>
-                <table border="1">
+                <table lass="collection_table" border="1">
                     <thead>
                         <tr>
                             <th>徴収期限日</th>
@@ -48,68 +49,18 @@
             {% endif %}
         </div>
     </div>
-    <div class="button_wrapper">
-        <a href="{% url 'member:member_update' member.id %}" 
-            class="button">編集</a> <!--それぞれの画面に編集ボタン　それぞれの更新画面に進める-->
+    <!-- 編集ボタン：保存・更新と同じように中央 -->
+    <div class="save_wrapper">
+    <a href="{% url 'member:member_update' member.id %}" class="save">編集</a>
     </div>
-    <form action="{% url 'member:member_delete' member.id %}" method="post" style="display: inline;">
+
+    <!-- 削除ボタン：右下固定 -->
+    <div class="delete_wrapper">
+    <form action="{% url 'member:member_delete' member.id %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="button delete" onclick="return confirm('本当に削除してもよろしいですか？');">削除</button>
+        <button type="submit" class="delete" onclick="return confirm('本当に削除してもよろしいですか？');">削除</button>
     </form>
+    </div>
 </div>
-
-<style>
-.attendance_monthly {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f4faff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;  /* ← 基本文字サイズを統一 */
-    color: #333;
-}
-
-.attendance_monthly h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-}
-
-.attendance_monthly ul {
-    list-style: disc;
-    padding-left: 20px;
-    margin: 0;
-}
-
-.attendance_monthly li {
-    margin-bottom: 4px;
-}
-</style>
-<style>
-.collection_history {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #fdf9f2;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    color: #333;
-}
-
-.collection_history h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.collection_history table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.collection_history th, .collection_history td {
-    padding: 6px 8px;
-    border: 1px solid #ccc;
-    text-align: center;
-}
-</style>
 
 {% endblock %}

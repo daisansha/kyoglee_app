@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 from accounting.models.expense_models import ExpenseApplication
 from accounting.forms.expense_forms import ExpenseApplicationForm
@@ -85,15 +86,12 @@ def expense_update(request, id):
 def expense_delete(request, id):
     expense = get_object_or_404(ExpenseApplication, id=id)
 
-    if request.method == 'POST':
-        expense.delete()
+    # 権限がなければ一覧へリダイレクト（何も起きなかったように見せる）
+    if not (request.user.is_staff or getattr(request.user.member, 'has_role', False)):
         return redirect('accounting:expense_list')
 
-    form = ExpenseApplicationForm(instance=expense)
-    for field in form.fields.values():
-        field.disabled = True
-
-    return render(request, 'accounting/expense/delete.html', {
-        'form': form,
-        'expense': expense,
-    })
+    if request.method == 'POST':
+        expense.delete()
+        messages.success(request, "経費申請を削除しました。")
+    
+    return redirect('accounting:expense_list')

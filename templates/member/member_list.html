@@ -1,18 +1,19 @@
-{% extends "base/member_base.html" %}
+{% extends "base/base.html" %}
 {% block body %}
 
 <div class="contents">
     <h2 class="page_name">団員一覧</h2>
     <div class="register_contents">
+        <div class="table_scroll_wrapper">
         <table border="1" class="member_table">
             <thead>
                 <tr>
-                    <th>名前</th>
-                    <th>期</th>
-                    <th>入団年</th>
-                    <th>所属学部・学科</th>
-                    <th>パート</th>
-                    <th>役職</th>
+                    <th><a href="?sort=name">名前</a></th>
+                    <th><a href="?sort=kyogleeid">期</a></th>
+                    <th><a href="?sort=joinyear">入団年</a></th>
+                    <th><a href="?sort=part">パート</a></th>
+                    <th><a href="?sort=faculty">所属学部・学科</a></th>
+                    <th><a href="?sort=role">役職</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -21,8 +22,8 @@
                     <td><a href="{% url 'member:member_detail' member.id %}">{{member.name}}</a></td>
                     <td>{{member.kyogleeid}}</td>
                     <td>{{member.joinyear}}</td>
-                    <td>{{member.faculty}}</td>
                     <td>{{member.part}}</td>
+                    <td>{{member.faculty}}</td>
                     <td>
                     {% for r in member.role.all %}
                     {{ r.label }}{% if not forloop.last %}, {% endif %}
@@ -38,6 +39,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 

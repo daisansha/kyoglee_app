@@ -11,8 +11,8 @@
                 <thead>
                     <tr>
                         <th style="min-width: 160px;">団員</th>
-                        <th>徴収額（円）</th>
-                        <th>徴収ステータス</th>
+                        <th>徴収額</th>
+                        <th>徴収</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,19 +36,25 @@
 
             <div class="save_wrapper">
                 <button type="submit" class="save">保存</button>
-                <a href="{% url 'accounting:collection_detail' year=collection.deadline.year pk=collection.id %}" class="button">キャンセル</a>
+            </div>
+            <div class="save_wrapper">
+            <a href="{% url 'accounting:collection_detail' year=collection.deadline.year pk=collection.id %}" class="button">キャンセル</a>
             </div>
         </form>
     </div>
+    <div class="delete_bottom_right">
+        {% if user.is_staff or user.member.has_role %}
+            <form method="post" action="{% url 'accounting:collection_delete' collection.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="delete" onclick="return confirm('本当にこの項目を削除してもよろしいですか？');">削除</button>
+            </form>
+        {% else %}
+            <button type="button" class="delete disabled" onclick="alert('削除権限がありません');">削除</button>
+        {% endif %}
+    </div> 
 </div>
 
 <style>
-    table input[type="number"],
-    table select {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 4px;
-    }
     th {
         padding: 8px 12px;
         text-align: left;

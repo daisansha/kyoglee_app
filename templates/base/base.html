@@ -4,6 +4,7 @@
 <head>
     {% load static %}
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}京大グリー運営管理アプリ{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <script src="{% static 'js/base.js' %}"></script>
@@ -12,23 +13,39 @@
     <link rel="apple-touch-icon" href="{% static 'img/kyoglee_flog.jpg' %}">
 </head>
 <body>
-    <div class="user-info">
+    <div class="header-row">
+        <div class="user-info">
         ログイン中のアカウント：{{ request.user.username }}
+        </div>
     </div>
-    <h1><a href="{% url 'main:index' %}">京都大学グリークラブ　運営管理アプリ</a></h1>
-    {% block navigation %}
-    <!-- 子テンプレートで上書きするナビボタン等 -->
-    {% endblock %}
-    <div id="clock" class="clock"></div>
-    <br>
+    <h1 class="main-title">🎼 京グリアプリ </h1>
+    <div class="main-nav">
+    <a href="{% url 'main:index' %}" class="main-nav-btn">ホーム</a>
+    <a href="{% url 'member:index' %}" class="main-nav-btn">団員</a>
+    <a href="{% url 'practice_management:practice_index' %}" class="main-nav-btn">練習</a>
+    <a href="{% url 'accounting:index' %}" class="main-nav-btn">会計</a>
+    </div>
     {% block body %}
     {% endblock %}
     <br>
+    <div class="link-block">
+        <div class="btn-wrapper">
+        <a href="https://www.youtube.com/@..." target="_blank" class="btn youtube">YouTube</a>
+        <a href="https://x.com/Glee_KU" target="_blank" class="btn twitter">Twitter</a>
+        <a href="https://sites.google.com/view/kyotoglee/home" target="_blank" class="btn website">WebSite</a>
+        <a href="https://drive.google.com/drive/home" target="_blank" class="btn googledrive">GoogleDrive</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="btn gmail">Gmail</a>
+        <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" class="btn googlecalender">GoogleCalender</a>
+        </div>
+    </div>
+    <div id="clock" class="clock"></div>
     <footer>
+    <div class="logout_wrapper">
         <form action="{% url 'accounts:logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="logout">ログアウト</button>
         </form>
+    </div>
     </footer>
 </body>
 </html>

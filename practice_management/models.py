@@ -57,9 +57,6 @@ class PracticeDay(models.Model):
     content = models.TextField(blank=True)  
     note = models.TextField(blank=True)
 
-    # 先生：チェックボックス → JSONFieldに変換
-    teachers = models.JSONField(default=list, blank=True)  # ["松岡先生", "伴奏の先生", ...]
-
     def __str__(self):
         return f"{self.date} の練習"
 

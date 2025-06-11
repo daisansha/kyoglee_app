@@ -10,6 +10,7 @@ class ExpenseApplicationForm(forms.ModelForm):
         model = ExpenseApplication  # 対象モデル
         fields = [
             'applicant',
+            'title',
             'description',
             'amount',
             'approval_status',
@@ -19,7 +20,8 @@ class ExpenseApplicationForm(forms.ModelForm):
 
         labels = {
             'applicant': '申請者',
-            'description': '申請理由',
+            'title': '申請項目',
+            'description': '申請内容詳細',
             'amount': '金額',
             'approval_status': '承認ステータス',
             'payment_status': '支払いステータス',
@@ -27,7 +29,8 @@ class ExpenseApplicationForm(forms.ModelForm):
         }  # フィールド名の日本語ラベル設定
         
         widgets = {
-            'description': forms.TextInput(attrs={'placeholder': '例）新入生奢り（キャラバン）'}),
+            'title': forms.TextInput(attrs={'placeholder': '例）新入生奢り（キャラバン）'}),
+            'description': forms.TextInput(attrs={'rows': 5, 'cols': 40, 'class': 'responsive-textarea'}),
             'amount': forms.NumberInput(attrs={'min': 0}),
         }
 

@@ -1,18 +1,19 @@
 {% extends "base/accounting_base.html" %}
-{% load custom_filters %}
+{% load accounting_custom_filters %}
 {% block body %}
 
 <div class="contents">
     <h2 class="page_name">{{ cash_page.title }}（{{ cash_page.year }}年）</h2>
     <div class="register_contents">
-    <di style="display: flex; gap: 20px; width: 100%;">
-        <!-- 左側：出入金管理表 -->
-        <div style="flex: 1;">
-            <h3>出入金管理表</h3>
-<h4>収入</h4>
-<table border="1" class="member_table">
-    <thead><tr><th>日付</th><th>項目</th><th>金額</th></tr></thead>
-    <tbody>
+    <div class="cash-layout" style="display: flex; gap: 20px; width: 100%;">
+        
+    <!-- 左側：出入金管理表 -->
+    <div style="flex: 1;">
+    <h2>出入金管理表</h2>
+    <h3>収入</h3>
+    <table border="1" class="member_table">
+        <thead><tr><th>日付</th><th>項目</th><th>金額</th></tr></thead>
+        <tbody>
         {% for item in income_items %}
         <tr>
             <td>{{ item.date|date:"n/j" }}</td>
@@ -24,13 +25,13 @@
             <td colspan="2"><strong>収入計</strong></td>
             <td id="income-total"></td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<h4>支出</h4>
-<table class="member_table" border="1">
-    <thead><tr><th>日付</th><th>項目</th><th>金額</th></tr></thead>
-    <tbody>
+    <h3>支出</h3>
+    <table class="member_table" border="1">
+        <thead><tr><th>日付</th><th>項目</th><th>金額</th></tr></thead>
+        <tbody>
         {% for item in expense_items %}
         <tr>
             <td>{{ item.date|date:"n/j" }}</td>
@@ -42,29 +43,28 @@
             <td colspan="2"><strong>支出計</strong></td>
             <td id="expense-total"></td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<h4>総計</h4>
-<table class="member_table" border="1">
-    <tr><th>収入計</th><td id="income-summary"></td></tr>
-    <tr><th>支出計</th><td id="expense-summary"></td></tr>
-    <tr><th>差額</th><td id="balance"></td></tr>
-</table>
+    <h3>総計</h4>
+    <table class="member_table" border="1">
+        <tr><th>収入計</th><td id="income-summary"></td></tr>
+        <tr><th>支出計</th><td id="expense-summary"></td></tr>
+        <tr><th>差額</th><td id="balance"></td></tr>
+    </table>
 
-            <button class="button_wrapper">
-                <a href="{% url 'accounting:cash_item_add' pk=cash_page.id %}" class="button">出入金項目を追加</a>
-            </button>
-        </div>
+    <div class="save_wrapper">
+        <a href="{% url 'accounting:cash_item_add' pk=cash_page.id %}" class="save">出金／入金追加</a>
+    </div>
+    </div>
 
-        <!-- 右側：予実管理表 + ボタン -->
-        <div style="flex: 1;">
-<h3>予実管理表</h3>
-<h4>予算：{{ cash_page.approval_status }}</h4>
-
-<table class="member_table" border="1">
-    <thead><tr><th>科目</th><th>予算</th><th>実費</th></tr></thead>
-    <tbody>
+    <!-- 右側：予実管理表 + ボタン -->
+    <div style="flex: 1;">
+    <h2>予実管理表</h2>
+    <h3>予算：{{ cash_page.approval_status }}</h3>
+    <table class="member_table" border="1">
+        <thead><tr><th>科目</th><th>予算</th><th>実費</th></tr></thead>
+        <tbody>
         <tr><td colspan="3"><strong>収入</strong></td></tr>
         {% for label in income_labels %}
         <tr>
@@ -98,27 +98,16 @@
             <td id="budget-diff"></td>
             <td id="actual-diff"></td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-            <button class="button_wrapper">
-                <a href="{% url 'accounting:cash_plan_update' pk=cash_page.id %}" class="button">予算詳細／更新</a>
-            </button>
-            <button class="button_wrapper">
-                <a href="{% url 'accounting:cash_page_delete' pk=cash_page.id %}" class="button">会計表を削除</a>
-            </button>
+    <div class="save_wrapper">
+        <a href="{% url 'accounting:cash_plan_update' pk=cash_page.id %}" class="save">予算詳細／更新</a>
+    </div>
+
+    </div>
     </div>
 </div>
-
-<style>
-    .spacious-table th,
-    .spacious-table td {
-        padding: 8px;
-    }
-    .total-row td {
-        background-color:gainsboro;
-    }
-</style>
 
 <script>
     function sumCells(selector) {
@@ -157,6 +146,5 @@
 
     document.addEventListener("DOMContentLoaded", updateTotals);
 </script>
-
 
 {% endblock %}

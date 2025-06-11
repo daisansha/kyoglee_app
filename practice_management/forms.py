@@ -27,20 +27,7 @@ class PracticeMonthCreateForm(forms.ModelForm):
         fields = ['year', 'month', 'members']
 
 
-TEACHER_CHOICES = [
-    ("松岡先生", "松岡先生"),
-    ("本山先生", "本山先生"),
-    ("伴奏の先生", "伴奏の先生"),
-]
-
 class PracticeDayDetailForm(forms.ModelForm):
-    teachers = forms.MultipleChoiceField(
-        choices=TEACHER_CHOICES,
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-        label="先生"
-    )
-
     start_time = forms.TimeField(
         label="開始時刻",
         widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
@@ -50,10 +37,9 @@ class PracticeDayDetailForm(forms.ModelForm):
         label="終了時刻",
         widget=forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
     )
-
     class Meta:
         model = PracticeDay
-        fields = ['start_time', 'end_time', 'status', 'location', 'custom_location', 'content', 'note', 'teachers']
+        fields = ['start_time', 'end_time', 'status', 'location', 'custom_location', 'content', 'note']
         labels = {
             'status': '種別',
             'location': '場所',
@@ -62,7 +48,7 @@ class PracticeDayDetailForm(forms.ModelForm):
             'note': '備考',
         }
         widgets = {
-            'content': forms.Textarea(attrs={'rows': 4}),
-            'note': forms.Textarea(attrs={'rows': 4}),
+            'content': forms.Textarea(attrs={'rows': 4, 'class': 'responsive-textarea'}),
+            'note': forms.Textarea(attrs={'rows': 5, 'cols': 40, 'class': 'responsive-textarea'}),
             'custom_location': forms.TextInput(attrs={'placeholder': 'その他の場合のみ記入'}),
         }

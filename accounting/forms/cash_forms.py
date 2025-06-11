@@ -16,6 +16,7 @@ class CashPageForm(forms.ModelForm):
         }
         widgets = {
             'approval_status': forms.Select(attrs={'class': 'form-control'}),
+            'notes': forms.Textarea(attrs={'rows': 5, 'cols': 40, 'class': 'responsive-textarea'}),
         }
 
 # =============================
@@ -90,5 +91,5 @@ class CashItemForm(forms.ModelForm):
             'cash_type': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.TextInput(attrs={'placeholder': '例：情宣チケット'}),
             'amount': forms.NumberInput(attrs={'min': 0}),
-            'notes': forms.Textarea(attrs={'rows': 2}),
+            'notes': forms.Textarea(attrs={'rows': 5, 'cols': 40, 'class': 'responsive-textarea'}),
         }
