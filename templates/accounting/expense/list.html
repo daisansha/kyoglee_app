@@ -8,12 +8,12 @@
         <table border="1" class="member_table">
             <thead>
                 <tr>
-                    <th>提出日時</th>
-                    <th>申請者</th>
-                    <th>金額</th>
-                    <th>申請理由</th>
-                    <th>承認</th>
-                    <th>支払い</th>
+                    <th>申請日時</th>
+                    <th><a href="?sort=applicant">申請者</a></th>
+                    <th>申請項目</th>
+                    <th><a href="?sort=amount">金額</a></th>
+                    <th><a href="?sort=approval_status">承認</a></th>
+                    <th><a href="?sort=payment_status">支払</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -21,8 +21,8 @@
                 <tr>
                     <td>{{ expense.submitted_at|date:"m/d" }}</td>
                     <td>{{ expense.applicant.name }}</td>
+                    <td><a href="{% url 'accounting:expense_detail' expense.id %}">{{ expense.title }}</a></td>
                     <td>{{ expense.amount }}円</td>
-                    <td><a href="{% url 'accounting:expense_detail' expense.id %}">{{ expense.description }}</a></td>
                     <td>{{ expense.get_approval_status_display }}</td>
                     <td>{{ expense.get_payment_status_display }}</td>
                 </tr>
