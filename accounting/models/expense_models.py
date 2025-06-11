@@ -32,7 +32,7 @@ class ExpenseApplication(models.Model):
     title = models.CharField(
         max_length=50,
         verbose_name="項目",
-        default="無題"
+        default=""
     )
 
     # 経費の内容（用途）

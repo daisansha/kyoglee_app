@@ -141,10 +141,10 @@ h2{
     padding: 20px;
     background-color: aliceblue;
 }
-.register_form{
+.register_form {
     text-align: left;
     font-size: 24px;
-    width: 80%;
+    width: 100%; /* ← 従来の80%を上書き */
 }
 .register_form input, 
 .register_form label, 
@@ -296,34 +296,6 @@ input[type="checkbox"] {
 
 .attendance_monthly li {
     margin-bottom: 4px;
-}
-
-/* 団員詳細画面 - 徴収記録テーブル */
-.collection_history {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #fdf9f2;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    color: #333;
-}
-
-.collection_history h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.collection_history table {
-    width: 80%;
-    border-collapse: collapse;
-}
-
-.collection_history th,
-.collection_history td {
-    padding: 6px 8px;
-    border: 1px solid #ccc;
-    text-align: center;
 }
 
 
@@ -604,6 +576,36 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+.collection_history {
+    background-color: #fdf9f2;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.scroll_inner_wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* 表が収まらない場合、横スクロール */
+.collection_table {
+    width: max-content;         /* ← 自動で広がる（画面より大きくてもOK） */
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.collection_table th,
+.collection_table td {
+    padding: 8px 12px;
+    white-space: nowrap;       /* 折り返さず横へ流す */
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+
 
 /* スマホ用のスタイル調整 */
 @media screen and (max-width: 670px) {
@@ -769,21 +771,18 @@ input[type="checkbox"] {
     min-width: 50px;
     font-size: 24px;
     }
-.collection_history {
-    overflow-x: auto;
 }
 
-/* collection_table のサイズ調整 */
-.collection_table {
-    width: 100%;
-    table-layout: fixed;
-    font-size: 1rem;
-}
+@media screen and (max-width: 670px) {
+    .collection_table {
+        font-size: 0.9rem;     /* ← テーブルが広すぎないよう微調整 */
+    }
 
-.collection_table th,
-.collection_table td {
-    word-wrap: break-word;
-    white-space: normal;
-}
-    
+    .collection_history {
+        padding: 10px;
+    }
+
+    .register_form {
+        width: 100%;
+    }
 }

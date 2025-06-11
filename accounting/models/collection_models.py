@@ -8,7 +8,7 @@ class Collection(models.Model):
     title = models.CharField(
         max_length=50,
         verbose_name="徴収項目",
-        default="無題"
+        default=""
     )  # 徴収の名前（例：2025年5月団費）
 
     content = models.TextField(

@@ -15,6 +15,7 @@
             {% if collection_records %}
             <div class="collection_history table_scroll_wrapper">
                 <h3>💰 徴収記録</h3>
+                <div class="scroll_inner_wrapper">
                 <table class="collection_table" border="1">
                     <thead>
                         <tr>
@@ -35,6 +36,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                </div>
             </div>
             {% endif %}
             {% if monthly_attendance %}

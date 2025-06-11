@@ -1,0 +1,772 @@
+/*全ページ共通のデザイン*/
+body {
+    font-family: "Avenir Next", "Hiragino Kaku Gothic ProN W3", sans-serif;
+}
+/*ヘッダー すべてのhtmlファイルに適用*/
+h1{
+    font-size: 36px;
+    text-align: center;
+}
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2a4d69;
+    text-align: center;
+    margin: 20px 0;
+    background: linear-gradient(to right, #dff6ff, #ffe2e2);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+.logo-icon {
+    height: 40px;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+h2{
+    text-align: center;
+}
+.subtitle a{
+    font-size: 24px;
+    text-align: center;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;    
+}
+.clock{
+    font-size: 20px;
+    text-align: right;
+    padding-right: 20px;
+    text-decoration: underline;
+}
+/* ユーザー表示用の親ラッパー（右上配置） */
+.header-row {
+    display: flex;
+    justify-content: flex-end;  /* 右寄せ */
+    padding: 0 20px 0 20px;
+}
+
+/* ユーザー名表示 */
+/*a*/
+.user-info {
+    font-size: 16px;
+    color: #333;
+}
+/*汎用ボタン*/
+.btn-wrapper{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+.btn{
+    padding: 8px 24px;
+    color:rgb(255, 255, 255);
+    opacity:0.8;
+    border-radius: 4px; 
+}
+.btn:hover{
+    opacity:1;
+}
+.button_wrapper {
+    display: flex;
+    justify-content: center; /* ボタンを中央に配置 */
+    margin-top: 20px; /* 上部に余白を追加 */
+}
+.button {
+    font-size: 20px;
+    border-radius: 5px;
+    margin: 0 10px; /* ボタンの間に余白を追加 */
+}
+.button.delete {
+    background-color: crimson;
+    color: white;
+}
+
+.youtube{
+    background-color: RGB(218,23,37); 
+    margin-right: 20px;
+}
+.twitter{
+    background-color: RGB(29,161,242);
+    margin-right: 20px;
+}
+.website{
+    background-color: darkseagreen;
+    margin-right: 20px;
+}
+.googledrive{
+    background-color: rgb(226, 210, 66);
+    margin-right: 20px;
+}
+.gmail{
+    background-color: rgb(168, 74, 74);
+    margin-right: 20px;
+}
+.googlecalender{
+    background-color: rgb(255, 147, 223);
+    margin-right: 20px;
+}
+
+/*ログイン画面 login.html*/
+.glee_logo_wrapper{
+    background-color:gainsboro;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+.glee_logo{
+    border:solid 2px black ;
+    border-radius: 5px;
+}
+
+/*入力フォーム member_form.html,login.html*/
+.contents{
+    padding: 20px;
+    background-color: gainsboro;
+}
+.page_name{
+    font-size: 24px;
+    text-align: center;
+    text-decoration: underline;
+}
+.parent_page{
+    display: flex;
+    text-align: center;
+    margin: auto;
+}
+.register_contents{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: aliceblue;
+}
+.register_form{
+    text-align: left;
+    font-size: 24px;
+    width: 80%;
+}
+.register_form input, 
+.register_form label, 
+.register_form select, 
+.register_form textarea {
+    font-size: 20px; /* 各フォーム要素のフォントサイズ */
+    width: 100%; /* フォーム要素を親の幅に合わせる */
+    margin-bottom: 10px; /* フォーム要素間の余白 */
+}
+.save_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.save {
+    font-size: 20px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.8;
+}
+.save:hover{
+    opacity: 1;
+}
+.delete_wrapper {
+    display: flex;
+    justify-content: flex-end;  /* ← 右寄せ */
+    margin-top: 20px;
+    padding-left: 20px;           /* 右余白で整える */
+}
+
+.delete {
+    font-size: 12px;
+    padding: 5px 5px;
+    background-color: crimson;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.delete:hover {
+    opacity: 1;
+}
+
+.delete_bottom_right {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 40px;
+}
+
+/* 権限がないユーザー用の見た目 */
+.delete.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+
+input[type="checkbox"] { 
+    /*効果1：チェックボックスの見た目を統一　高さ・幅を16pxで明示的に固定。　どのブラウザでもピクセル単位で同じ表示になる。*/
+    /*中央揃え（align-items: center）は「要素の高さ」を見て計算されるので、高さが統一されていれば、ラベル文字とボックスの中心がピタッと一致する。*/
+    width: 16px;
+    height: 16px;
+}
+.checkbox-group {
+    display: flex; /*blockでは縦並びになるが、flexにすると横並び*/
+    flex-wrap: wrap; /* 折り返し可 */
+    gap: 10px 30px; /* 行・列の間隔 */
+    margin-bottom: 20px;
+}
+.checkbox-item {
+    font-size: 18px;
+    display: flex;
+    align-items: center; /*チェックボックスとラベルの 上下の位置（縦位置）を中央揃え*/
+    gap: 6px; /*チェックボックスとそのラベルの 間に6pxの空*/
+    min-width: 150px;  /* 1ブロックの幅 */
+    white-space: nowrap; /*ラベルの文字が長くても 途中で折り返さず、1行で表示。*/
+}
+
+/*団員一覧画面 member_list.html*/
+.member_table {
+    width: 100%; /* テーブルを画面全体の幅に合わせる */
+    height: auto; /* 高さは内容に合わせて自動設定 */
+    border-collapse: collapse; /* 枠線の重なりをなくす */
+}
+.member_table th, 
+.member_table td {
+    padding: 10px; /* セル内のパディングを追加 */
+    text-align: left; /* テキストを左揃え */
+}
+.member_table td {
+    background-color: white; /* ヘッダーの背景色 */
+}
+.no_members {
+    text-align: center; /* 中央揃え */
+    padding: 20px; /* 余白を追加 */
+    font-size: 18px; /* フォントサイズを調整 */
+}
+
+/*団員詳細画面 member_detail.html*/
+.detail_contents {
+    display: flex;
+    justify-content: space-between; /* 左右に分けて配置 */
+    padding: 20px;
+    background-color: aliceblue;
+}
+.info_left {
+    flex: 1; /* 左側に余白を持たせる */
+    text-align: left; /* テキストを左揃え */
+    font-size: 20px;
+    line-height: 40px;
+}
+.info_right {
+    flex: 0 0 auto; /* 右側は内容に応じたサイズを保つ */
+    text-align: right; /* 画像を右揃えにする */
+}
+.member_picture {
+    max-width: 100%; /* 画像の最大幅を親要素に合わせる */
+    height: auto; /* アスペクト比を維持 */
+}
+
+/* 団員詳細画面 - 出席記録（月別） */
+.attendance_monthly {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f4faff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.attendance_monthly h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.attendance_monthly ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.attendance_monthly li {
+    margin-bottom: 4px;
+}
+
+/* 団員詳細画面 - 徴収記録テーブル */
+.collection_history {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fdf9f2;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.collection_history h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.collection_history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.collection_history th,
+.collection_history td {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+
+/*削除画面 member_confirm_delete.html*/
+.check p{
+    display: flex;
+    justify-content: center; 
+    font-size: 20px;
+}
+
+/*TOP*/
+.top_contents{
+    padding: 20px;
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 各ブロック間の間隔 */
+}
+.choice_group {
+    gap: 30px; /* ボタン間の隙間 */
+    display:flex;
+}
+.choice {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: lightblue;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 24px;
+}
+.choice:hover {
+    background-color: deepskyblue;
+}
+.contents_item{
+    background-color: aliceblue;
+    padding: 20px;
+    border-radius: 10px;
+}
+.contents_name{
+    font-size: 24px;
+    text-decoration: underline;
+}
+.footer{
+    background-color:#38b4ee;
+    padding: 20px 0px;
+    margin: 20px 0px;
+}
+.logout_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.logout {
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+/*attendance*/
+.attend {
+    background-color: #d0f0c0; /* 薄い緑 */
+}
+.absent {
+    background-color: #f9cccc; /* 薄い赤 */
+}
+.late {
+    background-color: #fff3b0; /* 薄い黄色 */
+}
+.unknown {
+    background-color: #e0e0e0; /* 灰色 */
+}
+
+/*practice_management*/
+.table_scroll_wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.practice_table {
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+.practice_table th,
+.practice_table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: center;
+}
+
+.active-row {
+    background-color: #e0f7fa;
+}
+
+.delete_form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;  /* 左寄せにしたい場合 */
+}
+
+.spacious-table th,
+.spacious-table td {
+    padding: 8px;
+}
+
+.total-row td {
+    background-color:gainsboro;
+}
+
+    .practice-row {
+        background-color: #d0f0ff; /* 練習：水色 */
+    }
+    .matsuoka_practice-row {
+        background-color: #a0c4ff; /* 松岡先生練習：青 */
+    }
+    .motoyama_practice-row {
+        background-color:rgb(250, 128, 144); /* 本山先生練習：赤 */
+    }
+    .piano_practice-row {
+        background-color:rgb(221, 128, 250); /* ピアノ先生練習：赤 */
+    }
+    .concert-row {
+        background-color: #d0ffd0; /* 演奏会：緑 */
+    }
+    .welcome-row {
+        background-color: #fff6a0; /* 新歓：黄色 */
+    }
+    .training_camp-row {
+        background-color: #ffd8a0; /* 合宿：オレンジ */
+    }
+
+    .table_scroll_wrapper {
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: 600px; /* 表の最大高さを設定（調整可能） */
+    }
+
+    .practice_table {
+        border-collapse: collapse;
+        min-width: max-content; /* 横スクロールを可能に */
+    }
+
+    .practice_table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9;
+    z-index: 3;
+    }
+    .practice_table th, .practice_table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .sticky-col {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        white-space: nowrap;
+        background-color: #f9f9f9; /* ← 背景色を追加して透過を防止 */
+    }
+
+    .sticky-col a {
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .practice_table select {
+    appearance: none;       /* モダンブラウザ */
+    -webkit-appearance: none; /* Safari対応 */
+    -moz-appearance: none;    /* Firefox対応 */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    text-align: center;
+    }
+    /* 左上角のセル（例：「5月」セル）を最前面に */
+    .practice_table thead .sticky-col {
+        z-index: 4;  /* 1行目＋1列目両方の上に */
+        background-color: #f9f9f9;
+        font-weight: bold;
+    }
+    .member-col {
+    width: 2em;
+    min-width: 2em;
+    max-width: 2em;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+    white-space: normal !important;  /* ← nowrap を強制解除 */
+    }
+
+/*練習表詳細*/
+.attendance_summary {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #f4faff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.attendance_summary h3 {
+    margin: 15px 0 5px;
+    font-size: 1em;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+}
+
+.name_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 6px 0 12px;
+}
+
+.name_item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.95em;
+}
+
+.note-field {
+    width: 100%;
+    height: 150px;
+}
+
+/* メイン4リンク（PC横並び、スマホ縦並び） */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.main-nav-btn {
+    background-color: #0077cc;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.main-nav-btn:hover {
+    background-color: #005fa3;
+}
+
+.checkbox-group {
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.checkbox-item {
+    min-width: 45%;
+    font-size: 20px;
+    white-space: normal;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+/* 表を横スクロール可能に（全画面表示対応） */
+.table_scroll_wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+
+/* スマホ用のスタイル調整 */
+@media screen and (max-width: 670px) {
+    /* 入力欄の高さ・フォントサイズ */
+    .register_form input,
+    .register_form select,
+    .register_form textarea {
+        font-size: 24px;
+        height: 48px;
+    }
+    .register_contents {
+        padding: 20px; /* もとの10pxから広げる */
+    }
+    .register_form {
+        width: 95%;  /* スマホでもなるべく広く使う */
+    }    
+.register_form table {
+    width: 100%;
+    table-layout: auto; /* ← 固定から自動に変更 */
+}
+.register_form td:first-child {
+    white-space: nowrap;
+    width: 60px; /* ラベル列の固定幅 */
+}
+.register_form td:last-child {
+    width: calc(100% - 140px); /* 残りを入力欄に */
+}
+    /* ボタンの大きさ */
+    .save {
+        font-size: 24px;
+        padding: 12px 24px;
+    }
+    .btn-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-wrapper .btn {
+        width: 80%; /* 幅を画面に収める */
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    /* 画像縮小 */
+    .glee_logo {
+        width: 80%;
+        height: auto;
+    }
+
+    /* トップページのポータルボタン（団員管理など） */
+    .choice_group {
+        flex-direction: column;
+        align-items: center;
+    }
+    .choice_group .choice {
+        width: 80%;
+        margin: 10px 0;
+    }
+
+    /* リンク全体のブロック */
+    .link-block {
+        background-color: #f2f2f2;
+        padding: 10px;
+        margin: 20px auto;
+        border-radius: 10px;
+        width: 95%;
+        max-width: 1000px;
+    }
+    /* ヘッダーメニュー */
+    .main-nav-wrapper {
+        flex-wrap: wrap;        /* 折り返しOKに */
+        gap: 10px 20px;         /* ボタン間の間隔 */
+        margin-bottom: 20px;    /* 下に余白 */
+    }
+    .btn.nav {
+        background-color: #38b4ee; /* 好みに合わせて色変更可 */
+        padding: 8px 20px;
+        font-size: 18px;
+        border-radius: 4px;
+        text-align: center;
+        white-space: nowrap;     /* ボタン内改行させない */
+    }
+
+    /* 団員登録 */
+    .checkbox-group {
+        gap: 10px;
+        justify-content: space-between;
+    }
+    .checkbox-item {
+        min-width: 45%;
+        font-size: 20px;
+        white-space: normal;
+    }
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+    /* 団員一覧 */
+    .register_contents {
+        padding: 10px;
+    }
+    .contents {
+        padding: 10px;
+    }
+    .member_table th,
+    .member_table td {
+        font-size: 18px;
+        padding: 6px;
+    }
+    .collection_table {
+        min-width: 600px; /* はみ出せる横幅にする */
+        font-size: 1rem;
+    }
+
+    .collection_table th,
+    .collection_table td {
+        padding: 8px 12px;
+        white-space: nowrap;
+    }
+    .wide-button {
+        font-size: 14px;        /* ボタン文字サイズも控えめに */
+        padding: 8px 12px;
+    }
+
+.attendance_monthly {
+    font-size: 1rem;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f4faff;
+    margin-top: 20px;
+}
+}
+
+.responsive-textarea {
+    width: 100%;
+    box-sizing: border-box; /* paddingやborderを幅に含める */
+    resize: vertical;       /* 必要に応じてリサイズ可能に */
+}
+
+/* スマホサイズの時（例: 画面幅600px以下）に高さも調整したい場合 */
+@media screen and (max-width: 600px) {
+    .responsive-textarea {
+        min-height: 150px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .cash-layout {
+        flex-direction: column; /* スマホでは縦並びに */
+    }
+}
+
+/* 徴収作成 */
+@media screen and (max-width: 670px) {
+    /* 徴収額（円） → 幅を縮める */
+    td input[type="number"] {
+    min-width: 70px;
+    font-size: 24px;
+    }
+
+    /* 徴収ステータス（select）→ 幅を広げる */
+    td select {
+    min-width: 50px;
+    font-size: 24px;
+    }
+}
