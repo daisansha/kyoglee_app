@@ -315,7 +315,7 @@ input[type="checkbox"] {
 }
 
 .collection_history table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
 }
 
@@ -769,9 +769,21 @@ input[type="checkbox"] {
     min-width: 50px;
     font-size: 24px;
     }
+.collection_history {
+    overflow-x: auto;
+}
+
+/* collection_table のサイズ調整 */
 .collection_table {
-    min-width: 100%;
+    width: 100%;
+    table-layout: fixed;
     font-size: 1rem;
+}
+
+.collection_table th,
+.collection_table td {
+    word-wrap: break-word;
+    white-space: normal;
 }
     
 }
