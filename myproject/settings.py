@@ -109,10 +109,10 @@ USE_TZ = True
 
 
 # 静的ファイル（CSS, JS など）の設定
-STATIC_URL = '/static/' # URLルート
-STATICFILES_DIRS = [BASE_DIR / "static"] # ソースとなる静的ファイルの場所
-STATIC_ROOT = BASE_DIR / "staticfiles" # collectstaticで集約される場所
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_URL = '/static/' # ブラウザからアクセスされるURL
+STATICFILES_DIRS = [BASE_DIR / "static"] # ソースとなる静的ファイルの場所 開発中のCSS/JSの場所
+STATIC_ROOT = BASE_DIR / "staticfiles" # collectstaticで集約される場所 本番用にcollectstaticでまとめる先
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" # 高速化＋キャッシュ管理
 
 # メディアファイル（アップロード画像など）の保存先
 if DEBUG:
