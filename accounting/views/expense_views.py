@@ -36,7 +36,7 @@ def expense_apply(request):
 @login_required
 def expense_list(request):
     sort_key = request.GET.get('sort')
-    if sort_key in ['applicant', 'amount', 'approval_status', 'payment_status']:
+    if sort_key in ['amount', 'approval_status', 'payment_status']:
         expense_list = ExpenseApplication.objects.all().order_by(sort_key)
     else:
         expense_list = ExpenseApplication.objects.all().order_by('-submitted_at')
