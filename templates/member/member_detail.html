@@ -57,11 +57,21 @@
     </div>
 
     <!-- 削除ボタン：右下固定 -->
-    <div class="delete_wrapper">
+    {% if user.is_staff or user.member.has_role %}
+    
     <form action="{% url 'member:member_delete' member.id %}" method="post">
         {% csrf_token %}
+        <div class="delete_wrapper">
         <button type="submit" class="delete" onclick="return confirm('本当に削除してもよろしいですか？');">削除</button>
+        </div>
     </form>
+    {% else %}
+    <div class="delete_wrapper">
+        <button type="button" class="delete disabled" onclick="alert('削除権限がありません');">
+            削除
+        </button>
+    </div>
+    {% endif %}
     </div>
 </div>
 
